@@ -1,26 +1,146 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="gnj-E7-2le">
+    <device id="ipad9_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Account-->
+        <scene sceneID="yZq-c4-VLB">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="UC3-hI-LWC" customClass="AccountViewController" customModule="GymnazoAIM" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                        <viewControllerLayoutGuide type="top" id="EwF-M7-V85"/>
+                        <viewControllerLayoutGuide type="bottom" id="VPV-kx-eCz"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <view key="view" contentMode="scaleToFill" id="aNh-yF-Rnr">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QvP-ut-44P">
+                                <rect key="frame" x="354" y="443" width="60" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Sign Out">
+                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="signOut:" destination="UC3-hI-LWC" eventType="touchUpInside" id="rX5-2U-QMl"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Account" image="circle-user-7.png" id="m2b-u9-J7w"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CPq-mz-rJt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="841" y="1272"/>
+        </scene>
+        <!--Exercises-->
+        <scene sceneID="LBS-p5-hoa">
+            <objects>
+                <viewController id="V9r-yu-vff" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="rXc-19-srO"/>
+                        <viewControllerLayoutGuide type="bottom" id="fRM-c4-SC7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3Qn-JU-duz">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Exercises" image="dumbbell-7.png" id="yjh-H3-ZoJ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="137-EO-gej" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="841" y="579"/>
+        </scene>
+        <!--Add-->
+        <scene sceneID="htB-ON-qhy">
+            <objects>
+                <viewController id="eou-9M-E7n" customClass="NewExerciseViewController" customModule="GymnazoAIM" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="BcV-XT-sn2"/>
+                        <viewControllerLayoutGuide type="bottom" id="JLq-4F-gSP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ddp-jM-96f">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add new exercise here" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eqo-xm-D6S">
+                                <rect key="frame" x="293" y="327" width="182" height="63"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Add" image="plus-simple-7.png" id="ffL-Z7-4X9"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gPb-vI-x7q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="840.625" y="-76.171875"/>
+        </scene>
+        <!--Login View Controller-->
+        <scene sceneID="fuC-dy-ut8">
+            <objects>
+                <viewController id="T9g-Be-zzA" customClass="LoginViewController" customModule="GymnazoAIM" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="n5P-pK-BeJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="hWx-2N-dLZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7mu-UG-8KK">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="GMNZO.png" translatesAutoresizingMaskIntoConstraints="NO" id="Qq2-ER-Os2">
+                                <rect key="frame" x="64" y="216" width="640" height="122"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qJQ-Sw-Hkm" customClass="GIDSignInButton">
+                                <rect key="frame" x="264" y="616" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Y85-vJ-Z6X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-112" y="-468"/>
+        </scene>
+        <!--Tab Bar View Controller-->
+        <scene sceneID="MRA-PV-GFh">
+            <objects>
+                <tabBarController id="gnj-E7-2le" customClass="TabBarViewController" customModule="GymnazoAIM" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="jGB-Vq-7FF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="eou-9M-E7n" kind="relationship" relationship="viewControllers" id="9hM-pd-H0T"/>
+                        <segue destination="V9r-yu-vff" kind="relationship" relationship="viewControllers" id="ao2-4Q-iOj"/>
+                        <segue destination="T9g-Be-zzA" kind="presentation" identifier="Show Login" id="jBw-Vm-HJj"/>
+                        <segue destination="UC3-hI-LWC" kind="relationship" relationship="viewControllers" id="Gx9-Vj-MAw"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nXv-yj-heI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-111" y="252"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="GMNZO.png" width="640" height="122"/>
+        <image name="circle-user-7.png" width="30" height="30"/>
+        <image name="dumbbell-7.png" width="30" height="30"/>
+        <image name="plus-simple-7.png" width="30" height="30"/>
+    </resources>
 </document>
