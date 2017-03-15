@@ -10,21 +10,21 @@ import Foundation
 
 public class Category {
     
-    var name: String
+    var focusPoint: String
     var values: [String:Bool]
     
     init(name: String, values: [String]) {
-        self.name = name
+        self.focusPoint = name
         
         self.values = [String:Bool]()
-        for catName in values {
-            self.values[catName] = false
+        for category in values {
+            self.values[category] = false
         }
     }
     
-    func addNewCategoryValue(catName: String) {
-        if self.values[catName] == nil {
-            self.values[catName] = false
+    func addNewCategoryValue(category: String) {
+        if self.values[category] == nil {
+            self.values[category] = false
         }
         else {
             //Notify trainer category already exists

@@ -23,6 +23,7 @@
 		D59185CE1E76541000564FFE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D59185CC1E76541000564FFE /* Main.storyboard */; };
 		D59185D01E76541000564FFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D59185CF1E76541000564FFE /* Assets.xcassets */; };
 		D59185D31E76541000564FFE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D59185D11E76541000564FFE /* LaunchScreen.storyboard */; };
+		D5A3172A1E790A9E006DF5B8 /* NewFocusPointController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A317291E790A9E006DF5B8 /* NewFocusPointController.swift */; };
 		D7FB3D8C2EC0E66B332BC314 /* Pods_GymnazoAIM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58BAD26F2EBDC97E4FBD6E0C /* Pods_GymnazoAIM.framework */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +49,7 @@
 		D59185CF1E76541000564FFE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D59185D21E76541000564FFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D59185D41E76541000564FFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D5A317291E790A9E006DF5B8 /* NewFocusPointController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFocusPointController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				985B47031E78DFD200E0992C /* CategoriesTableViewController.swift */,
 				984B02E01E7667FA00400548 /* LoginViewController.swift */,
 				984B02DA1E765CDB00400548 /* NewExerciseViewController.swift */,
+				D5A317291E790A9E006DF5B8 /* NewFocusPointController.swift */,
 				984B02E41E766E0700400548 /* TabBarViewController.swift */,
 				D59185CF1E76541000564FFE /* Assets.xcassets */,
 				D59185D11E76541000564FFE /* LaunchScreen.storyboard */,
@@ -251,6 +254,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5A3172A1E790A9E006DF5B8 /* NewFocusPointController.swift in Sources */,
 				984B02E51E766E0700400548 /* TabBarViewController.swift in Sources */,
 				984B02E91E7675BA00400548 /* AccountViewController.swift in Sources */,
 				984B02E11E7667FA00400548 /* LoginViewController.swift in Sources */,
