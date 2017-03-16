@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -13,7 +14,7 @@
         <scene sceneID="z47-kt-lfV">
             <objects>
                 <tableViewController id="JhE-fp-e56" customClass="CategoriesTableViewController" customModule="GymnazoAIM" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="P5Q-eT-iMg">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="P5Q-eT-iMg">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -42,12 +43,21 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="c3K-Rl-0ul">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="A2Y-eF-avq">
-                            <connections>
-                                <segue destination="pnf-3x-MIL" kind="presentation" identifier="addFocusPoint" id="aVb-uO-I0M"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="A2Y-eF-avq">
+                                <connections>
+                                    <segue destination="pnf-3x-MIL" kind="presentation" identifier="addFocusPoint" id="aVb-uO-I0M"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Delete" id="qQN-Nl-hQF">
+                                <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <outlet property="addFocusPointButton" destination="A2Y-eF-avq" id="L8L-aa-j5t"/>
+                        <outlet property="deleteButton" destination="qQN-Nl-hQF" id="Kfm-80-Bb1"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fbN-Ce-TUa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

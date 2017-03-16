@@ -11,6 +11,9 @@ import Firebase
 
 class CategoriesTableViewController: UITableViewController {
     
+    @IBOutlet var addFocusPointButton: UIBarButtonItem!
+    @IBOutlet var deleteButton: UIBarButtonItem!
+    
     var categories = [Category]()
 
     override func viewDidLoad() {
@@ -21,6 +24,7 @@ class CategoriesTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         self.navigationItem.leftBarButtonItem = self.editButtonItem
+        self.navigationItem.rightBarButtonItems = [addFocusPointButton]
         
         //Firebase
         let database = FIRDatabase.database().reference()
@@ -37,6 +41,18 @@ class CategoriesTableViewController: UITableViewController {
 
             let set = IndexSet.init(integer: this.categories.count-1)
             this.tableView.insertSections(set, with: .automatic)
+        })
+        
+        categoryNames.observe(.childRemoved, with: {
+            [weak self] (snapshot) in
+            guard let this = self else { return }
+            
+            let focusPoint = snapshot.key
+            if let index = this.categories.index(where: { $0.focusPoint == focusPoint }) {
+                this.categories.remove(at: index)
+                let set = IndexSet.init(integer: index)
+                this.tableView.deleteSections(set, with: .automatic)
+            }
         })
     }
 
@@ -70,13 +86,21 @@ class CategoriesTableViewController: UITableViewController {
         return self.categories[section].focusPoint
     }
 
-    /*
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        if editing == true {
+            self.navigationItem.rightBarButtonItems = [deleteButton]
+        }
+        else {
+            self.navigationItem.rightBarButtonItems = [addFocusPointButton]
+        }
+    }
+    
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
 
     /*
     // Override to support editing the table view.

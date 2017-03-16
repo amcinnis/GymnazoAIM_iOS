@@ -196,22 +196,27 @@ class NewFocusPointController: UIViewController, UITableViewDelegate, UITableVie
         }    
     }
     
-
-    
     // Override to support rearranging the table view.
     func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
         let category = categories.remove(at: fromIndexPath.row)
         categories.insert(category, at: to.row)
     }
     
-
-    /*
     // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the item to be re-orderable.
+        if indexPath.row == categories.count {
+            return false
+        }
         return true
     }
-    */
+    
+    func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
+        if proposedDestinationIndexPath.row == categories.count {
+            return IndexPath(row: proposedDestinationIndexPath.row - 1, section: 0)
+        }
+        return proposedDestinationIndexPath
+    }
 
     /*
     // MARK: - Navigation
