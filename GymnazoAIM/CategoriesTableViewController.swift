@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class CategoriesTableViewController: UITableViewController {
     
@@ -19,7 +20,24 @@ class CategoriesTableViewController: UITableViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.navigationItem.leftBarButtonItem = self.editButtonItem
+        
+        //Firebase
+        let database = FIRDatabase.database().reference()
+        let categoryNames = database.child("category_names")
+        categoryNames.observe(.childAdded, with: {
+            [weak self] (snapshot) in
+            guard let this = self else { return }
+            
+            let focusPoint = snapshot.key
+            let cats = snapshot.value
+            
+            let category = Category(name: focusPoint, values: cats as! [String])
+            this.categories.append(category)
+
+            let set = IndexSet.init(integer: this.categories.count-1)
+            this.tableView.insertSections(set, with: .automatic)
+        })
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,23 +49,26 @@ class CategoriesTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return self.categories.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return self.categories[section].values.count
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
 
         // Configure the cell...
+        cell.textLabel?.text = categories[indexPath.section].values[indexPath.row]
 
         return cell
     }
-    */
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return self.categories[section].focusPoint
+    }
 
     /*
     // Override to support conditional editing of the table view.
