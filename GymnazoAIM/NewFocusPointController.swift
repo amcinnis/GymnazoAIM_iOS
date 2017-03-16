@@ -7,18 +7,24 @@
 //
 
 import UIKit
+import Firebase
 
 class NewCategoryCell: UITableViewCell {
     @IBOutlet var textField: UITextField!
     
 }
 
-class NewFocusPointController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+class NewFocusPointController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIGestureRecognizerDelegate {
     
-    var categories = [String]()
+    var categories = [String]() {
+        didSet {
+            valuesChanged()
+        }
+    }
     
     @IBOutlet var nameField: UITextField!
     @IBOutlet var categoryTableView: UITableView!
+    @IBOutlet var doneButton: UIButton!
 
     
     override func viewDidLoad() {
@@ -27,7 +33,10 @@ class NewFocusPointController: UIViewController, UITableViewDelegate, UITableVie
         self.categoryTableView.delegate = self
         self.categoryTableView.dataSource = self
         self.nameField.delegate = self
+        self.nameField.addTarget(self, action: #selector(NewFocusPointController.valuesChanged), for: .editingChanged)
         
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(NewFocusPointController.tappedOutside))
+//        self.view.addGestureRecognizer(tap)
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -36,28 +45,75 @@ class NewFocusPointController: UIViewController, UITableViewDelegate, UITableVie
         self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
+    func valuesChanged() {
+        if !(nameField.text?.isEmpty)! && self.categories.count > 0 {
+            doneButton.isEnabled = true
+        }
+        else {
+            doneButton.isEnabled = false
+        }
+    }
+    
     @IBAction func cancel(_ sender: Any) {
+        self.view.endEditing(true)
         dismiss(animated: true, completion: nil)
     }
     
     @IBAction func done(_ sender: Any) {
-        
+        let databaseRef = FIRDatabase.database().reference()
+        let categoryNamesRef = databaseRef.child("category_names")
+        if let focusPointName = nameField.text {
+            if (focusPointName.rangeOfCharacter(from: NSCharacterSet.alphanumerics) != nil) {
+                for (index, category) in categories.enumerated() {
+                    if category.rangeOfCharacter(from: NSCharacterSet.alphanumerics) == nil {
+                        categories.remove(at: index)
+                        categoryTableView.deleteRows(at: [IndexPath(row: index, section:0)], with: .automatic)
+                    }
+                }
+                if categories.count > 0 {
+                    categoryNamesRef.child(focusPointName).setValue(categories)
+                    dismiss(animated: true, completion: nil)
+                }
+            }
+            else {
+                //UIAlertView "Enter valid Focus Point Name"
+            }
+        }
     }
     
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        print("Edit")
-        if !(textField.text?.isEmpty)!{
-            self.editButtonItem.isEnabled = true
-        }
-        else {
-            self.editButtonItem.isEnabled = false
-        }
-        return true
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
+    
+    // MARK: - Text Field Delegate
+    
+    @IBAction func nameFieldChanged(_ sender: UITextField) {
+        self.categoryTableView.headerView(forSection: 0)?.textLabel?.text = sender.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    
+    @IBAction func categoryNameEntered(_ sender: UITextField) {
+        if let cell = sender.superview?.superview as? NewCategoryCell {
+            if let indexPath = self.categoryTableView.indexPath(for: cell) {
+                self.categories[indexPath.row] = sender.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                print("Categories: \(self.categories)")
+            }
+        }
+    }
+    
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        if !(textField.text?.isEmpty)!{
+//            self.editButtonItem.isEnabled = true
+//        }
+//        else {
+//            self.editButtonItem.isEnabled = false
+//        }
+//        
+//        return true
+//    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == self.nameField {
-            self.categoryTableView.headerView(forSection: 0)?.textLabel?.text = self.nameField.text
             self.nameField.resignFirstResponder()
         }
         else {
@@ -65,17 +121,13 @@ class NewFocusPointController: UIViewController, UITableViewDelegate, UITableVie
         }
         return false
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 
     // MARK: - Table view data source
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == categories.count {
-            self.categories.append("Placeholder")
+            self.categories.append("")
+            print("Categories.count: \(self.categories.count)")
             self.categoryTableView.insertRows(at: [IndexPath(row: categories.count-1, section: 0)], with: .automatic)
         }
     }
@@ -95,7 +147,7 @@ class NewFocusPointController: UIViewController, UITableViewDelegate, UITableVie
             return "New Focus Point"
         }
         else {
-            return self.nameField.text
+            return self.nameField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         }
     }
 
@@ -107,11 +159,14 @@ class NewFocusPointController: UIViewController, UITableViewDelegate, UITableVie
         else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewCategoryCell", for: indexPath) as! NewCategoryCell
             cell.textField.delegate = self
+            cell.textField.becomeFirstResponder()
             
             return cell
         }
     }
-
+    
+    
+    
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         self.categoryTableView.setEditing(editing, animated: animated)
@@ -126,15 +181,18 @@ class NewFocusPointController: UIViewController, UITableViewDelegate, UITableVie
         return true
     }
     
-
-    
     // Override to support editing the table view.
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
+            if let cell = tableView.cellForRow(at: indexPath) as? NewCategoryCell {
+                cell.textField.text = nil
+            }
+            self.categories.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+
         }    
     }
     
@@ -142,7 +200,8 @@ class NewFocusPointController: UIViewController, UITableViewDelegate, UITableVie
     
     // Override to support rearranging the table view.
     func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+        let category = categories.remove(at: fromIndexPath.row)
+        categories.insert(category, at: to.row)
     }
     
 

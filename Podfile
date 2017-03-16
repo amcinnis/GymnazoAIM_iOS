@@ -8,6 +8,7 @@ target 'GymnazoAIM' do
   # Pods for GymnazoAIM
   pod 'Firebase/Auth'
   pod 'Firebase/Core'
+  pod 'Firebase/Database'
   pod 'GoogleSignIn'
 
 end
