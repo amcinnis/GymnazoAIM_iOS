@@ -100,7 +100,7 @@ class NewFocusPointController: UIViewController, UITableViewDelegate, UITableVie
                 }
                 if categories.count > 0 && valid {
                     let focusPoint = FocusPoint(name: focusPointName, values: categories)
-                    categoryNamesRef.child(focusPointName).setValue(focusPoint.ids)
+                    categoryNamesRef.child(focusPointName).setValue(focusPoint.firebase)
                     dismiss(animated: true, completion: nil)
                 }
             }

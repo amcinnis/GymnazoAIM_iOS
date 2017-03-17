@@ -27,6 +27,9 @@ class CategoriesTableViewController: UITableViewController, UITextFieldDelegate 
             if edited == true && oldValue == false {
                 self.navigationItem.leftBarButtonItems = [cancelButton, saveButton]
             }
+            else if edited == false && oldValue == true {
+                self.navigationItem.leftBarButtonItems = [self.editButtonItem]
+            }
         }
     }
     
@@ -45,14 +48,14 @@ class CategoriesTableViewController: UITableViewController, UITextFieldDelegate 
         //Firebase
         let database = FIRDatabase.database().reference()
         let categoryNames = database.child("category_names")
-        categoryNames.queryOrderedByValue().observe(.childAdded, with: {
+        categoryNames.observe(.childAdded, with: {
             [weak self] (snapshot) in
             guard let this = self else { return }
             
             let focusPointName = snapshot.key
-            let ids = snapshot.value
+            let firebase = snapshot.value
             
-            let focusPoint = FocusPoint(name: focusPointName, ids: ids as! [String : String])
+            let focusPoint = FocusPoint(name: focusPointName, firebase: firebase as! [String : String])
             this.focusPoints.append(focusPoint)
 
             let set = IndexSet.init(integer: this.focusPoints.count-1)
@@ -70,6 +73,24 @@ class CategoriesTableViewController: UITableViewController, UITextFieldDelegate 
                 this.tableView.deleteSections(set, with: .automatic)
             }
         })
+        
+        categoryNames.observe(.childChanged, with: {
+            [weak self] (snapshot) in
+            guard let this = self else { return }
+            print(snapshot)
+            let focusName = snapshot.key
+            if let index = this.focusPoints.index(where: { $0.name == focusName }) {
+                let focusPoint = this.focusPoints[index]
+                focusPoint.update(firebase: snapshot.value as! [String:String])
+            }
+            
+            for i in 0..<this.focusPoints.count {
+                let sectionTitle = this.tableView(this.tableView, titleForHeaderInSection: i)
+                if focusName == sectionTitle {
+                    this.tableView.reloadSections(IndexSet(integer: i), with: .automatic)
+                }
+            }
+        })
     }
 
     override func didReceiveMemoryWarning() {
@@ -82,10 +103,12 @@ class CategoriesTableViewController: UITableViewController, UITextFieldDelegate 
     @IBAction func categoryNameEntered(_ sender: UITextField) {
         let cell = sender.superview?.superview as! CategoryCell
         if let indexPath = tableView.indexPath(for: cell) {
-            let modelValue = focusPoints[indexPath.section].categories[indexPath.row]
+            let focusPoint = focusPoints[indexPath.section]
+            let modelValue = focusPoint.categories[indexPath.row]
             if sender.text != modelValue {
                 edited = true
                 print("Value changed from \"\(modelValue)\" to \"\(sender.text!)\"!")
+                focusPoint.editCat(indexPath: indexPath, newName: sender.text!)
             }
         }
         
@@ -167,9 +190,22 @@ class CategoriesTableViewController: UITableViewController, UITextFieldDelegate 
     }
     
     @IBAction func saveEdit(_ sender: Any) {
-    edited = false
-        self.tableView.setEditing(false, animated: true)
-        
+        let alert = UIAlertController(title: "Save", message: "Are you sure you want to update categorical information for all exercises?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Save", style: .default, handler: {
+            [weak self] (alert) in
+            guard let this = self else { return }
+            this.edited = false
+            for focusPoint in this.focusPoints {
+                if let edits = focusPoint.edits {
+                    let fpRef = FIRDatabase.database().reference().child("category_names").child(focusPoint.name)
+                    fpRef.updateChildValues(edits)
+                    focusPoint.edits = nil
+                }
+            }
+            this.setEditing(false, animated: true)
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func cancelEdit(_ sender: Any) {
