@@ -38,7 +38,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
                                             <connections>
                                                 <action selector="categoryNameEntered:" destination="JhE-fp-e56" eventType="editingDidEnd" id="dVa-Gf-7Qg"/>
                                             </connections>
@@ -89,7 +89,7 @@
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="A2Y-eF-avq">
                                 <connections>
-                                    <segue destination="pnf-3x-MIL" kind="presentation" identifier="addFocusPoint" id="aVb-uO-I0M"/>
+                                    <segue destination="pnf-3x-MIL" kind="presentation" identifier="newFocusPoint" id="aVb-uO-I0M"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem title="Delete" style="done" id="qQN-Nl-hQF">
@@ -266,7 +266,7 @@
             </objects>
             <point key="canvasLocation" x="841" y="579"/>
         </scene>
-        <!--Add-->
+        <!--Select Video-->
         <scene sceneID="htB-ON-qhy">
             <objects>
                 <viewController id="eou-9M-E7n" customClass="NewExerciseViewController" customModule="GymnazoAIM" customModuleProvider="target" sceneMemberID="viewController">
@@ -285,14 +285,22 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ivM-yM-SFj">
+                                <rect key="frame" x="329" y="175" width="110" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Record Exercise"/>
+                                <connections>
+                                    <action selector="recordExercise:" destination="eou-9M-E7n" eventType="touchUpInside" id="1m6-sz-XZ3"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Add" image="plus-simple-7.png" id="ffL-Z7-4X9"/>
+                    <navigationItem key="navigationItem" title="Select Video" id="Gbl-me-26h"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gPb-vI-x7q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="840.625" y="-76.171875"/>
+            <point key="canvasLocation" x="1606.25" y="-76.171875"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="fuC-dy-ut8">
@@ -334,7 +342,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="T9g-Be-zzA" kind="presentation" identifier="Show Login" id="jBw-Vm-HJj"/>
-                        <segue destination="eou-9M-E7n" kind="relationship" relationship="viewControllers" id="9hM-pd-H0T"/>
+                        <segue destination="amZ-dj-j4e" kind="relationship" relationship="viewControllers" id="9hM-pd-H0T"/>
                         <segue destination="V9r-yu-vff" kind="relationship" relationship="viewControllers" id="ao2-4Q-iOj"/>
                         <segue destination="zg4-os-qiH" kind="relationship" relationship="viewControllers" id="def-gx-sRF"/>
                         <segue destination="UC3-hI-LWC" kind="relationship" relationship="viewControllers" id="Gx9-Vj-MAw"/>
@@ -382,6 +390,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mR1-9s-E1f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2675.78125" y="1327.734375"/>
+        </scene>
+        <!--Add-->
+        <scene sceneID="Xhd-Kd-Ede">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="amZ-dj-j4e" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Add" image="plus-simple-7.png" id="ffL-Z7-4X9"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="RCN-Mm-Mot">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="eou-9M-E7n" kind="relationship" relationship="rootViewController" id="D1r-tv-vnh"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GHJ-Fb-NzQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="840.625" y="-76.171875"/>
         </scene>
     </scenes>
     <resources>

@@ -16,7 +16,7 @@ class CategoryCell: UITableViewCell {
     
 }
 
-class CategoriesTableViewController: UITableViewController, UITextFieldDelegate {
+class CategoriesTableViewController: UITableViewController, UITextFieldDelegate, NewFocusPointDelegate {
     
     @IBOutlet var addFocusPointButton: UIBarButtonItem!
     @IBOutlet var cancelButton: UIBarButtonItem!
@@ -32,6 +32,7 @@ class CategoriesTableViewController: UITableViewController, UITextFieldDelegate 
             }
         }
     }
+    private var newFocusPoint = false
     
     var focusPoints = [FocusPoint]()
 
@@ -60,6 +61,10 @@ class CategoriesTableViewController: UITableViewController, UITextFieldDelegate 
 
             let set = IndexSet.init(integer: this.focusPoints.count-1)
             this.tableView.insertSections(set, with: .automatic)
+            if this.newFocusPoint == true {
+                this.tableView.scrollToRow(at: IndexPath(row:0, section: this.focusPoints.count-1), at: .top, animated: true)
+                this.newFocusPoint = false
+            }
         })
         
         categoryNames.observe(.childRemoved, with: {
@@ -96,6 +101,12 @@ class CategoriesTableViewController: UITableViewController, UITextFieldDelegate 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    //MARK: - New Focus Point Delegate
+    
+    func didCreateNewFocusPoint(newFocusPoint: Bool) {
+        self.newFocusPoint = newFocusPoint
     }
 
     // MARK: - Text Field Delegate
@@ -143,11 +154,13 @@ class CategoriesTableViewController: UITableViewController, UITextFieldDelegate 
                 cell.textField.isHidden = false
                 cell.title.isHidden = true
                 cell.textField.text = focusPoints[indexPath.section].categories[indexPath.row]
+                cell.selectionStyle = .default
             }
             else {
                 cell.textField.isHidden = true
                 cell.title.isHidden = false
                 cell.title.text = focusPoints[indexPath.section].categories[indexPath.row]
+                cell.selectionStyle = .none
             }
  
             return cell
@@ -164,6 +177,18 @@ class CategoriesTableViewController: UITableViewController, UITextFieldDelegate 
                     updateSelectedRowsCount(count: 0)
                 }
             }
+            else {
+                insertNewCategoryCell(indexPath: indexPath)
+            }
+        }
+    }
+    
+    func insertNewCategoryCell(indexPath: IndexPath) {
+        let focusPoint = focusPoints[indexPath.section]
+        focusPoint.categories.append("")
+        self.tableView.insertRows(at: [IndexPath(row: indexPath.row, section: indexPath.section)], with: .automatic)
+        if let cell = self.tableView.cellForRow(at: indexPath) as? CategoryCell {
+            cell.textField.becomeFirstResponder()
         }
     }
     
@@ -295,14 +320,21 @@ class CategoriesTableViewController: UITableViewController, UITextFieldDelegate 
     }
     */
 
-    /*
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "newFocusPoint" {
+            if let nav = segue.destination as? UINavigationController {
+                if let newFPVC = nav.topViewController as? NewFocusPointController {
+                    newFPVC.delegate = self
+                }
+            }
+        }
     }
-    */
+
 
 }

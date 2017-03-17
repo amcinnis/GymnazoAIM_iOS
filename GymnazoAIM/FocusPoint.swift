@@ -45,16 +45,24 @@ public class FocusPoint {
     }
     
     func editCat(indexPath: IndexPath, newName: String) {
-        if self.edits == nil {
-            self.edits = [String:String]()
-        }
-        let id = self.ids[self.categories[indexPath.row]]
-        if let id = id {
+        if let id = self.ids[self.categories[indexPath.row]] {
+            if self.edits == nil {
+                self.edits = [String:String]()
+            }
             self.edits?[id] = newName
         }
         else {
-            print("Error editing category. ID lookup returned nil.")
+            insertNewCat(indexPath: indexPath, newName: newName)
         }
+    }
+    
+    func insertNewCat(indexPath: IndexPath, newName: String) {
+        self.categories[indexPath.row] = newName
+        let focusPointRef = categoryNamesRef.child(self.name)
+        let id =  focusPointRef.childByAutoId().key
+        self.ids[newName] = id
+        self.firebase[id] = newName
+        focusPointRef.setValue(self.firebase)
     }
     
     func removeCat(indexPath: IndexPath) {

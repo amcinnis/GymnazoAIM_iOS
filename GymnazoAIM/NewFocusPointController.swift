@@ -9,6 +9,10 @@
 import UIKit
 import Firebase
 
+protocol NewFocusPointDelegate {
+    func didCreateNewFocusPoint(newFocusPoint: Bool)
+}
+
 class NewCategoryCell: UITableViewCell {
     @IBOutlet var textField: UITextField!
     
@@ -21,7 +25,8 @@ class NewFocusPointController: UIViewController, UITableViewDelegate, UITableVie
             valuesChanged()
         }
     }
-    
+
+    var delegate: NewFocusPointDelegate?
     @IBOutlet var nameField: UITextField!
     @IBOutlet var categoryTableView: UITableView!
     @IBOutlet var doneButton: UIButton!
@@ -101,6 +106,9 @@ class NewFocusPointController: UIViewController, UITableViewDelegate, UITableVie
                 if categories.count > 0 && valid {
                     let focusPoint = FocusPoint(name: focusPointName, values: categories)
                     categoryNamesRef.child(focusPointName).setValue(focusPoint.firebase)
+                    if let delegate = delegate {
+                        delegate.didCreateNewFocusPoint(newFocusPoint: true)
+                    }
                     dismiss(animated: true, completion: nil)
                 }
             }

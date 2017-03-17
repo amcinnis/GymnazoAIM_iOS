@@ -8,12 +8,17 @@
 
 import UIKit
 
-class NewExerciseViewController: UIViewController {
+class NewExerciseViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
+    private var imagePicker = UIImagePickerController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        imagePicker.mediaTypes = ["public.movie"]
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,6 +26,16 @@ class NewExerciseViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func recordExercise(_ sender: Any) {
+        imagePicker.sourceType = .camera
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    //MARK: - Image Picker Controller Delegate
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+    }
 
     /*
     // MARK: - Navigation
