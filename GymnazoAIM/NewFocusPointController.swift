@@ -34,6 +34,7 @@ class NewFocusPointController: UIViewController, UITableViewDelegate, UITableVie
         self.categoryTableView.dataSource = self
         self.nameField.delegate = self
         self.nameField.addTarget(self, action: #selector(NewFocusPointController.valuesChanged), for: .editingChanged)
+        self.nameField.becomeFirstResponder()
         
 //        let tap = UITapGestureRecognizer(target: self, action: #selector(NewFocusPointController.tappedOutside))
 //        self.view.addGestureRecognizer(tap)
@@ -64,14 +65,42 @@ class NewFocusPointController: UIViewController, UITableViewDelegate, UITableVie
         let categoryNamesRef = databaseRef.child("category_names")
         if let focusPointName = nameField.text {
             if (focusPointName.rangeOfCharacter(from: NSCharacterSet.alphanumerics) != nil) {
+                //Remove empty cells
+                var set: IndexSet?
                 for (index, category) in categories.enumerated() {
                     if category.rangeOfCharacter(from: NSCharacterSet.alphanumerics) == nil {
-                        categories.remove(at: index)
-                        categoryTableView.deleteRows(at: [IndexPath(row: index, section:0)], with: .automatic)
+                        if set == nil {
+                            set = IndexSet(integer: index)
+                        }
+                        else {
+                            set?.insert(index)
+                        }
                     }
                 }
-                if categories.count > 0 {
-                    categoryNamesRef.child(focusPointName).setValue(categories)
+                if let set = set {
+                    var indexPaths = [IndexPath]()
+                    for index in set.reversed() {
+                        self.categories.remove(at: index)
+                        indexPaths.append(IndexPath(row: index, section: 0))
+                    }
+                    self.categoryTableView.deleteRows(at: indexPaths, with: .automatic)
+                }
+                //Rejects numeric only categories
+                var valid = true
+                for category in categories {
+                    if let range = category.rangeOfCharacter(from: .decimalDigits) {
+                        if category == category.substring(with: range) {
+                            valid = false
+                            let alert = UIAlertController(title: "Invalid Category Name: \"\(category)\"", message: "Category names must contain at least one character.", preferredStyle: .alert)
+                            let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)
+                            alert.addAction(dismissAction)
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                    }
+                }
+                if categories.count > 0 && valid {
+                    let focusPoint = FocusPoint(name: focusPointName, values: categories)
+                    categoryNamesRef.child(focusPointName).setValue(focusPoint.ids)
                     dismiss(animated: true, completion: nil)
                 }
             }
@@ -118,6 +147,17 @@ class NewFocusPointController: UIViewController, UITableViewDelegate, UITableVie
         }
         else {
             textField.resignFirstResponder()
+            if let cell = textField.superview?.superview as? NewCategoryCell {
+                if let indexPath = self.categoryTableView.indexPath(for: cell) {
+                    let nextIndexPath = IndexPath(row: indexPath.row + 1, section: indexPath.section)
+                    if let nextCell = self.categoryTableView.cellForRow(at: nextIndexPath) as? NewCategoryCell {
+                        nextCell.textField.becomeFirstResponder()
+                    }
+                    else {
+                        insertNewCategoryCell()
+                    }
+                }
+            }
         }
         return false
     }
@@ -126,10 +166,14 @@ class NewFocusPointController: UIViewController, UITableViewDelegate, UITableVie
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == categories.count {
-            self.categories.append("")
-            print("Categories.count: \(self.categories.count)")
-            self.categoryTableView.insertRows(at: [IndexPath(row: categories.count-1, section: 0)], with: .automatic)
+            insertNewCategoryCell()
         }
+    }
+    
+    func insertNewCategoryCell() {
+        self.categories.append("")
+        print("Categories.count: \(self.categories.count)")
+        self.categoryTableView.insertRows(at: [IndexPath(row: categories.count-1, section: 0)], with: .automatic)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

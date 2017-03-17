@@ -9,12 +9,28 @@
 import UIKit
 import Firebase
 
-class CategoriesTableViewController: UITableViewController {
+class CategoryCell: UITableViewCell {
+    
+    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var textField: UITextField!
+    
+}
+
+class CategoriesTableViewController: UITableViewController, UITextFieldDelegate {
     
     @IBOutlet var addFocusPointButton: UIBarButtonItem!
+    @IBOutlet var cancelButton: UIBarButtonItem!
     @IBOutlet var deleteButton: UIBarButtonItem!
+    @IBOutlet var saveButton: UIBarButtonItem!
+    private var edited = false {
+        didSet {
+            if edited == true && oldValue == false {
+                self.navigationItem.leftBarButtonItems = [cancelButton, saveButton]
+            }
+        }
+    }
     
-    var categories = [Category]()
+    var focusPoints = [FocusPoint]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,23 +39,23 @@ class CategoriesTableViewController: UITableViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        self.navigationItem.leftBarButtonItem = self.editButtonItem
+        self.navigationItem.leftBarButtonItems = [self.editButtonItem]
         self.navigationItem.rightBarButtonItems = [addFocusPointButton]
         
         //Firebase
         let database = FIRDatabase.database().reference()
         let categoryNames = database.child("category_names")
-        categoryNames.observe(.childAdded, with: {
+        categoryNames.queryOrderedByValue().observe(.childAdded, with: {
             [weak self] (snapshot) in
             guard let this = self else { return }
             
-            let focusPoint = snapshot.key
-            let cats = snapshot.value
+            let focusPointName = snapshot.key
+            let ids = snapshot.value
             
-            let category = Category(name: focusPoint, values: cats as! [String])
-            this.categories.append(category)
+            let focusPoint = FocusPoint(name: focusPointName, ids: ids as! [String : String])
+            this.focusPoints.append(focusPoint)
 
-            let set = IndexSet.init(integer: this.categories.count-1)
+            let set = IndexSet.init(integer: this.focusPoints.count-1)
             this.tableView.insertSections(set, with: .automatic)
         })
         
@@ -48,8 +64,8 @@ class CategoriesTableViewController: UITableViewController {
             guard let this = self else { return }
             
             let focusPoint = snapshot.key
-            if let index = this.categories.index(where: { $0.focusPoint == focusPoint }) {
-                this.categories.remove(at: index)
+            if let index = this.focusPoints.index(where: { $0.name == focusPoint }) {
+                this.focusPoints.remove(at: index)
                 let set = IndexSet.init(integer: index)
                 this.tableView.deleteSections(set, with: .automatic)
             }
@@ -61,58 +77,172 @@ class CategoriesTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    // MARK: - Text Field Delegate
+    
+    @IBAction func categoryNameEntered(_ sender: UITextField) {
+        let cell = sender.superview?.superview as! CategoryCell
+        if let indexPath = tableView.indexPath(for: cell) {
+            let modelValue = focusPoints[indexPath.section].categories[indexPath.row]
+            if sender.text != modelValue {
+                edited = true
+                print("Value changed from \"\(modelValue)\" to \"\(sender.text!)\"!")
+            }
+        }
+        
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return self.categories.count
+        return self.focusPoints.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return self.categories[section].values.count
+        if tableView.isEditing {
+            return self.focusPoints[section].categories.count + 1
+        }
+        return self.focusPoints[section].categories.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
+        if indexPath.row == focusPoints[indexPath.section].categories.count {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AddCategoryCell", for: indexPath)
+            return cell
+        }
+        else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath) as! CategoryCell
 
-        // Configure the cell...
-        cell.textLabel?.text = categories[indexPath.section].values[indexPath.row]
-
-        return cell
+            // Configure the cell...
+            cell.textField.delegate = self
+            if tableView.isEditing {
+                cell.textField.isHidden = false
+                cell.title.isHidden = true
+                cell.textField.text = focusPoints[indexPath.section].categories[indexPath.row]
+            }
+            else {
+                cell.textField.isHidden = true
+                cell.title.isHidden = false
+                cell.title.text = focusPoints[indexPath.section].categories[indexPath.row]
+            }
+ 
+            return cell
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView.isEditing {
+            if indexPath.row < focusPoints[indexPath.section].categories.count {
+                if let count = tableView.indexPathsForSelectedRows?.count {
+                    updateSelectedRowsCount(count: count)
+                }
+                else {
+                    updateSelectedRowsCount(count: 0)
+                }
+            }
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        if tableView.isEditing{
+            if let count = tableView.indexPathsForSelectedRows?.count {
+                updateSelectedRowsCount(count: count)
+            }
+            else {
+                updateSelectedRowsCount(count: 0)
+            }
+        }
+    }
+    
+    func updateSelectedRowsCount(count: Int) {
+        if count == 0 {
+            deleteButton.title = "Delete"
+            deleteButton.isEnabled = false
+        }
+        else {
+            deleteButton.title = "Delete (\(count))"
+            deleteButton.isEnabled = true
+        }
+    }
+    
+    @IBAction func saveEdit(_ sender: Any) {
+    edited = false
+        self.tableView.setEditing(false, animated: true)
+        
+    }
+    
+    @IBAction func cancelEdit(_ sender: Any) {
+        edited = false
+        reloadSections()
+        self.navigationItem.leftBarButtonItems = [self.editButtonItem]
+    }
+    
+    @IBAction func deleteRows(_ sender: Any) {
+        let alert = UIAlertController(title: "Confirmation", message: "Are you sure you want to delete these categories?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: {
+            [weak self] (alert) in
+            guard let this = self else { return }
+            if let selectedPaths = this.tableView.indexPathsForSelectedRows {
+                for indexPath in selectedPaths {
+                    this.tableView(this.tableView, commit: .delete, forRowAt: indexPath)
+                }
+                this.deleteButton.title = "Delete"
+                this.deleteButton.isEnabled = false
+            }
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.categories[section].focusPoint
+        return self.focusPoints[section].name
+    }
+    
+    func reloadSections() {
+        let sectionsSet = IndexSet(integersIn: 0..<tableView.numberOfSections)
+        tableView.reloadSections(sectionsSet, with: .automatic)
     }
 
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         if editing == true {
             self.navigationItem.rightBarButtonItems = [deleteButton]
+            deleteButton.title = "Delete"
+            deleteButton.isEnabled = false
         }
         else {
             self.navigationItem.rightBarButtonItems = [addFocusPointButton]
         }
+        reloadSections()
     }
     
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
+        let count = self.focusPoints[indexPath.section].categories.count
+        if indexPath.row == count {
+            return false
+        }
         return true
     }
 
-    /*
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
+            let focusPoint = focusPoints[indexPath.section]
+            focusPoint.removeCat(indexPath: indexPath)
+            if focusPoints.count == 0 {
+                focusPoints.remove(at: indexPath.section)
+            }
+            
+            //Change from array to uniqueid?
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
 
     /*
     // Override to support rearranging the table view.

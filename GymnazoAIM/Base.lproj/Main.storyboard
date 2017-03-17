@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Categories Table View Controller-->
+        <!--Categories-->
         <scene sceneID="z47-kt-lfV">
             <objects>
                 <tableViewController id="JhE-fp-e56" customClass="CategoriesTableViewController" customModule="GymnazoAIM" customModuleProvider="target" sceneMemberID="viewController">
@@ -19,18 +19,49 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CategoryCell" textLabel="JyT-Ch-tRI" style="IBUITableViewCellStyleDefault" id="zng-Bp-bPQ">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CategoryCell" id="zng-Bp-bPQ" customClass="CategoryCell" customModule="GymnazoAIM" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="56" width="768" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zng-Bp-bPQ" id="qy3-WK-Qgl">
                                     <rect key="frame" x="0.0" y="0.0" width="768" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JyT-Ch-tRI">
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" fixedFrame="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rRP-wc-Xn1">
                                             <rect key="frame" x="48" y="0.0" width="672" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Category" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2wd-k3-E6e">
+                                            <rect key="frame" x="28" y="6" width="712" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <nil key="textColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <action selector="categoryNameEntered:" destination="JhE-fp-e56" eventType="editingDidEnd" id="dVa-Gf-7Qg"/>
+                                            </connections>
+                                        </textField>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="textField" destination="2wd-k3-E6e" id="vNu-uC-B47"/>
+                                    <outlet property="title" destination="rRP-wc-Xn1" id="IFX-n7-QS0"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddCategoryCell" textLabel="o49-ef-s0d" style="IBUITableViewCellStyleDefault" id="aDG-Vh-i3X">
+                                <rect key="frame" x="0.0" y="100" width="768" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aDG-Vh-i3X" id="qSX-Xo-JHZ">
+                                    <rect key="frame" x="0.0" y="0.0" width="768" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Add Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="o49-ef-s0d">
+                                            <rect key="frame" x="48" y="0.0" width="672" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -42,26 +73,43 @@
                             <outlet property="delegate" destination="JhE-fp-e56" id="LMR-TT-Fb3"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="c3K-Rl-0ul">
+                    <navigationItem key="navigationItem" title="Categories" id="c3K-Rl-0ul">
+                        <leftBarButtonItems>
+                            <barButtonItem systemItem="cancel" id="88b-IV-Zj5">
+                                <connections>
+                                    <action selector="cancelEdit:" destination="JhE-fp-e56" id="93W-Tn-zy1"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="save" id="vj0-gS-WO3">
+                                <connections>
+                                    <action selector="saveEdit:" destination="JhE-fp-e56" id="Zud-9C-0fc"/>
+                                </connections>
+                            </barButtonItem>
+                        </leftBarButtonItems>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="A2Y-eF-avq">
                                 <connections>
                                     <segue destination="pnf-3x-MIL" kind="presentation" identifier="addFocusPoint" id="aVb-uO-I0M"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Delete" id="qQN-Nl-hQF">
+                            <barButtonItem title="Delete" style="done" id="qQN-Nl-hQF">
                                 <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="deleteRows:" destination="JhE-fp-e56" id="f4v-6e-eEi"/>
+                                </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="addFocusPointButton" destination="A2Y-eF-avq" id="L8L-aa-j5t"/>
+                        <outlet property="cancelButton" destination="88b-IV-Zj5" id="O6j-J3-PpJ"/>
                         <outlet property="deleteButton" destination="qQN-Nl-hQF" id="Kfm-80-Bb1"/>
+                        <outlet property="saveButton" destination="vj0-gS-WO3" id="n4j-hu-0B6"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fbN-Ce-TUa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1816" y="1329"/>
+            <point key="canvasLocation" x="1815.625" y="1328.90625"/>
         </scene>
         <!--New Focus Point-->
         <scene sceneID="eal-oa-wMh">

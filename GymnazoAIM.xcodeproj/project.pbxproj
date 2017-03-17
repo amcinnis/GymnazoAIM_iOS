@@ -16,7 +16,7 @@
 		984B02E51E766E0700400548 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984B02E41E766E0700400548 /* TabBarViewController.swift */; };
 		984B02E71E76758400400548 /* circle-user-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 984B02E61E76758400400548 /* circle-user-7.png */; };
 		984B02E91E7675BA00400548 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984B02E81E7675BA00400548 /* AccountViewController.swift */; };
-		985B46FE1E78D9C600E0992C /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985B46FD1E78D9C600E0992C /* Category.swift */; };
+		985B46FE1E78D9C600E0992C /* FocusPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985B46FD1E78D9C600E0992C /* FocusPoint.swift */; };
 		985B47001E78DDC300E0992C /* list-simple-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 985B46FF1E78DDC300E0992C /* list-simple-7.png */; };
 		985B47041E78DFD200E0992C /* CategoriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985B47031E78DFD200E0992C /* CategoriesTableViewController.swift */; };
 		D59185C91E76541000564FFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59185C81E76541000564FFE /* AppDelegate.swift */; };
@@ -38,7 +38,7 @@
 		984B02E41E766E0700400548 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		984B02E61E76758400400548 /* circle-user-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle-user-7.png"; sourceTree = "<group>"; };
 		984B02E81E7675BA00400548 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
-		985B46FD1E78D9C600E0992C /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		985B46FD1E78D9C600E0992C /* FocusPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusPoint.swift; sourceTree = "<group>"; };
 		985B46FF1E78DDC300E0992C /* list-simple-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list-simple-7.png"; sourceTree = "<group>"; };
 		985B47031E78DFD200E0992C /* CategoriesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesTableViewController.swift; sourceTree = "<group>"; };
 		B94878EEF466BD170D6698E2 /* Pods-GymnazoAIM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GymnazoAIM.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GymnazoAIM/Pods-GymnazoAIM.debug.xcconfig"; sourceTree = "<group>"; };
@@ -105,8 +105,8 @@
 				D59185C81E76541000564FFE /* AppDelegate.swift */,
 				D59185CC1E76541000564FFE /* Main.storyboard */,
 				984B02E81E7675BA00400548 /* AccountViewController.swift */,
-				985B46FD1E78D9C600E0992C /* Category.swift */,
 				985B47031E78DFD200E0992C /* CategoriesTableViewController.swift */,
+				985B46FD1E78D9C600E0992C /* FocusPoint.swift */,
 				984B02E01E7667FA00400548 /* LoginViewController.swift */,
 				984B02DA1E765CDB00400548 /* NewExerciseViewController.swift */,
 				D5A317291E790A9E006DF5B8 /* NewFocusPointController.swift */,
@@ -260,7 +260,7 @@
 				984B02E11E7667FA00400548 /* LoginViewController.swift in Sources */,
 				D59185C91E76541000564FFE /* AppDelegate.swift in Sources */,
 				984B02DB1E765CDB00400548 /* NewExerciseViewController.swift in Sources */,
-				985B46FE1E78D9C600E0992C /* Category.swift in Sources */,
+				985B46FE1E78D9C600E0992C /* FocusPoint.swift in Sources */,
 				985B47041E78DFD200E0992C /* CategoriesTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
