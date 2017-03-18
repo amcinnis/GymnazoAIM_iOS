@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -278,13 +279,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add new exercise here" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eqo-xm-D6S">
-                                <rect key="frame" x="293" y="327" width="182" height="63"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ivM-yM-SFj">
                                 <rect key="frame" x="329" y="175" width="110" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -293,14 +287,67 @@
                                     <action selector="recordExercise:" destination="eou-9M-E7n" eventType="touchUpInside" id="1m6-sz-XZ3"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UiL-la-K2K">
+                                <rect key="frame" x="331" y="497" width="107" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Import Exercise"/>
+                                <connections>
+                                    <action selector="importExercise:" destination="eou-9M-E7n" eventType="touchUpInside" id="B4l-Pk-3b9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Add" image="plus-simple-7.png" id="OxV-Y9-5Xj"/>
                     <navigationItem key="navigationItem" title="Select Video" id="Gbl-me-26h"/>
+                    <connections>
+                        <segue destination="cgO-mF-VXg" kind="presentation" identifier="presentSplit" id="dEa-B3-Jb2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gPb-vI-x7q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1606.25" y="-76.171875"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="gf6-aS-Vy3">
+            <objects>
+                <navigationController id="Oqw-Xd-zZj" sceneMemberID="viewController">
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="768" height="1024"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="c6W-cF-nq4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="5hX-dd-wNl" kind="relationship" relationship="rootViewController" id="YpA-7m-xlh"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yKx-Eq-NLk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3098" y="-394"/>
+        </scene>
+        <!--AV Player View Controller-->
+        <scene sceneID="Sd0-2f-1Yv">
+            <objects>
+                <avPlayerViewController videoGravity="AVLayerVideoGravityResizeAspect" id="5hX-dd-wNl" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="1Fq-8l-c7n"/>
+                </avPlayerViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HBt-KO-A13" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3816" y="-394"/>
+        </scene>
+        <!--Split View Controller-->
+        <scene sceneID="YHk-Vd-bvf">
+            <objects>
+                <splitViewController id="cgO-mF-VXg" sceneMemberID="viewController">
+                    <connections>
+                        <segue destination="Oqw-Xd-zZj" kind="relationship" relationship="masterViewController" id="sfR-2w-mPD"/>
+                        <segue destination="DTD-4S-1Zu" kind="relationship" relationship="detailViewController" id="YRQ-ft-fxk"/>
+                    </connections>
+                </splitViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6fi-oi-f7m" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2326" y="-76"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="fuC-dy-ut8">
@@ -342,7 +389,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="T9g-Be-zzA" kind="presentation" identifier="Show Login" id="jBw-Vm-HJj"/>
-                        <segue destination="amZ-dj-j4e" kind="relationship" relationship="viewControllers" id="9hM-pd-H0T"/>
+                        <segue destination="eou-9M-E7n" kind="relationship" relationship="viewControllers" id="mqP-Tg-hYk"/>
                         <segue destination="V9r-yu-vff" kind="relationship" relationship="viewControllers" id="ao2-4Q-iOj"/>
                         <segue destination="zg4-os-qiH" kind="relationship" relationship="viewControllers" id="def-gx-sRF"/>
                         <segue destination="UC3-hI-LWC" kind="relationship" relationship="viewControllers" id="Gx9-Vj-MAw"/>
@@ -391,24 +438,87 @@
             </objects>
             <point key="canvasLocation" x="2675.78125" y="1327.734375"/>
         </scene>
-        <!--Add-->
-        <scene sceneID="Xhd-Kd-Ede">
+        <!--Navigation Controller-->
+        <scene sceneID="eg3-Nc-z3y">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="amZ-dj-j4e" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Add" image="plus-simple-7.png" id="ffL-Z7-4X9"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DTD-4S-1Zu" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="RCN-Mm-Mot">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="7qe-ht-fCN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="eou-9M-E7n" kind="relationship" relationship="rootViewController" id="D1r-tv-vnh"/>
+                        <segue destination="JEf-GM-kgp" kind="relationship" relationship="rootViewController" id="nJj-78-GYK"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="GHJ-Fb-NzQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Irs-L3-eG3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="840.625" y="-76.171875"/>
+            <point key="canvasLocation" x="3097.65625" y="240.82031249999997"/>
+        </scene>
+        <!--Categorize Table View Controller-->
+        <scene sceneID="fnJ-sI-dZ3">
+            <objects>
+                <tableViewController id="JEf-GM-kgp" customClass="CategorizeTableViewController" customModule="GymnazoAIM" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="JZT-TS-egT">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewExerciseCategoryCell" id="xMJ-e8-4Fo" customClass="NewExerciseCategoryCell" customModule="GymnazoAIM" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="56" width="768" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xMJ-e8-4Fo" id="rMt-n8-XPY">
+                                    <rect key="frame" x="0.0" y="0.0" width="768" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" fixedFrame="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OcL-om-tjk">
+                                            <rect key="frame" x="48" y="0.0" width="672" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="YyK-1e-LeS">
+                                            <rect key="frame" x="692" y="6" width="51" height="31"/>
+                                            <connections>
+                                                <action selector="toggleChanged:" destination="JEf-GM-kgp" eventType="valueChanged" id="MiJ-pB-XXm"/>
+                                            </connections>
+                                        </switch>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="YyK-1e-LeS" secondAttribute="trailing" constant="19" id="KAE-4T-gon"/>
+                                        <constraint firstItem="YyK-1e-LeS" firstAttribute="centerY" secondItem="rMt-n8-XPY" secondAttribute="centerY" id="isL-lo-4I6"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="title" destination="OcL-om-tjk" id="7ym-um-Re2"/>
+                                    <outlet property="toggleSwitch" destination="YyK-1e-LeS" id="S7s-zk-7Pg"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="JEf-GM-kgp" id="FFm-q9-cRa"/>
+                            <outlet property="delegate" destination="JEf-GM-kgp" id="l3D-Ar-5De"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="bop-fV-GkU">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="4PB-tq-xzo">
+                            <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="cancel:" destination="JEf-GM-kgp" id="V4M-ui-WU7"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Upload" id="mfg-RK-4Y7">
+                            <connections>
+                                <action selector="upload:" destination="JEf-GM-kgp" id="tA6-55-x1c"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qXN-51-tTA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3825.78125" y="245.50781249999997"/>
         </scene>
     </scenes>
     <resources>

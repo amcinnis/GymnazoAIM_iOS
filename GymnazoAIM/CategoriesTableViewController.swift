@@ -119,7 +119,7 @@ class CategoriesTableViewController: UITableViewController, UITextFieldDelegate,
             if sender.text != modelValue {
                 edited = true
                 print("Value changed from \"\(modelValue)\" to \"\(sender.text!)\"!")
-                focusPoint.editCat(indexPath: indexPath, newName: sender.text!)
+                focusPoint.editCatName(indexPath: indexPath, newName: sender.text!)
             }
         }
         
@@ -293,7 +293,7 @@ class CategoriesTableViewController: UITableViewController, UITextFieldDelegate,
         if editingStyle == .delete {
             // Delete the row from the data source
             let focusPoint = focusPoints[indexPath.section]
-            focusPoint.removeCat(indexPath: indexPath)
+            focusPoint.removeCatName(indexPath: indexPath)
             if focusPoints.count == 0 {
                 focusPoints.remove(at: indexPath.section)
             }

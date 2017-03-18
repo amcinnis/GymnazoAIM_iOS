@@ -9,6 +9,7 @@ target 'GymnazoAIM' do
   pod 'Firebase/Auth'
   pod 'Firebase/Core'
   pod 'Firebase/Database'
+  pod 'Firebase/Storage'
   pod 'GoogleSignIn'
 
 end

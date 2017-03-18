@@ -13,22 +13,25 @@ public class FocusPoint {
     
     let categoryNamesRef = FIRDatabase.database().reference().child("category_names")
     var name: String
-    var categories: [String]
+    var categories: [String] // array of ctegory names
     var ids: [String:String] //key is category, value is id
     var firebase: [String:String] //key is id, value is category
-    var edits: [String:String]?
+    var edits: [String:String]? //key is category id, value is new category name
+    var togglevalues: [String:Bool] //key is category id, value is toggleSwitch value Boolean
     
     init(name: String, values: [String]) {
         self.name = name
         self.categories = values
         self.ids = [String:String]()
         self.firebase = [String:String]()
+        self.togglevalues = [String:Bool]()
         
         let focusPointRef = categoryNamesRef.child(name)
         for cat in values {
             let id =  focusPointRef.childByAutoId().key
             self.ids[cat] = id
             self.firebase[id] = cat
+            self.togglevalues[id] = false
         }
     }
     
@@ -36,15 +39,17 @@ public class FocusPoint {
         self.name = name
         self.firebase = firebase
         self.ids = [String:String]()
+        self.togglevalues = [String:Bool]()
         
         self.categories = [String]()
         for (category) in Array(firebase).sorted(by: {$0.key < $1.key}) {
             self.categories.append(category.value)
             self.ids[category.value] = category.key
+            self.togglevalues[category.key] = false
         }
     }
     
-    func editCat(indexPath: IndexPath, newName: String) {
+    func editCatName(indexPath: IndexPath, newName: String) {
         if let id = self.ids[self.categories[indexPath.row]] {
             if self.edits == nil {
                 self.edits = [String:String]()
@@ -52,11 +57,11 @@ public class FocusPoint {
             self.edits?[id] = newName
         }
         else {
-            insertNewCat(indexPath: indexPath, newName: newName)
+            insertNewCatName(indexPath: indexPath, newName: newName)
         }
     }
     
-    func insertNewCat(indexPath: IndexPath, newName: String) {
+    func insertNewCatName(indexPath: IndexPath, newName: String) {
         self.categories[indexPath.row] = newName
         let focusPointRef = categoryNamesRef.child(self.name)
         let id =  focusPointRef.childByAutoId().key
@@ -65,7 +70,7 @@ public class FocusPoint {
         focusPointRef.setValue(self.firebase)
     }
     
-    func removeCat(indexPath: IndexPath) {
+    func removeCatName(indexPath: IndexPath) {
         let category = self.categories[indexPath.row]
         let catID = self.ids[category]
         self.categories.remove(at: indexPath.row)
