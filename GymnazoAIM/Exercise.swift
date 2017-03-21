@@ -11,30 +11,28 @@ import Foundation
 class Exercise {
     var name: String?
     var id: String?
-    var enabledCategories: [String:Bool]?
+    var enabledCategories: [String:String]?
+    var globalMovement: String?
     var video: Video?
     var creationDate: Date?
+    var movementOrganized: Bool?
     
-    func addEnabledCategory(categoryID: String, value: Bool) {
+    init() {
+        
+    }
+    
+    init(id: String, name: String, globalMovement: String, enabled: [String:String]) {
+        self.id = id
+        self.name = name
+        self.enabledCategories = enabled
+        self.globalMovement = globalMovement
+        self.movementOrganized = false
+    }
+    
+    func addEnabledCategory(categoryID: String, value: String) {
         if self.enabledCategories == nil {
-            self.enabledCategories = [String:Bool]()
+            self.enabledCategories = [String:String]()
         }
         self.enabledCategories?[categoryID] = value
-    }
-}
-
-class Category {
-    var name: String
-    var id: String?
-    var value: Bool
-    
-    init(name: String) {
-        self.name = name
-        self.value = false
-    }
-    
-    init(name: String, value: Bool) {
-        self.name = name
-        self.value = value
     }
 }

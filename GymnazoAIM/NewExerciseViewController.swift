@@ -82,6 +82,7 @@ class NewExerciseViewController: UIViewController, UINavigationControllerDelegat
                 if let video = video {
                     let avPlayerVC = AVPlayerViewController()
                     avPlayerVC.player = AVPlayer(url: video.url)
+                    avPlayerVC.showsPlaybackControls = true
                     splitVC.viewControllers[0] = avPlayerVC
                     if let nav = splitVC.viewControllers[1] as? UINavigationController {
                         if let catTableVC = nav.topViewController as? CategorizeTableViewController {

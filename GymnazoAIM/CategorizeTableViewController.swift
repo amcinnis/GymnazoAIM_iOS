@@ -24,9 +24,10 @@ class NewExerciseCategoryCell: UITableViewCell {
 
 class CategorizeTableViewController: UITableViewController, UITextFieldDelegate {
 
-    var exercise = Exercise()
-    var focusPoints = [FocusPoint]()
-    var doneAction: UIAlertAction?
+    private var exercise = Exercise()
+    private var focusPoints = [FocusPoint]()
+    private var movementIDs = [String]()
+    private var doneAction: UIAlertAction?
     var video: Video?
     
     override func viewDidLoad() {
@@ -74,6 +75,12 @@ class CategorizeTableViewController: UITableViewController, UITextFieldDelegate 
             
             let focusPoint = FocusPoint(name: focusPointName, firebase: firebase as! [String:String])
             this.focusPoints.append(focusPoint)
+            if focusPoint.name == "Global Movements" {
+                for movement in focusPoint.firebase {
+                    this.movementIDs.append(movement.key)
+                }
+            }
+            
             let set = IndexSet.init(integer: this.focusPoints.count-1)
             this.tableView.insertSections(set, with: .automatic)
         })
@@ -99,12 +106,22 @@ class CategorizeTableViewController: UITableViewController, UITextFieldDelegate 
     }
     
     @IBAction func upload(_ sender: Any) {
+        self.transferEnabledCategories()
+        guard (self.exercise.enabledCategories != nil) else {
+            let failAlert = UIAlertController(title: "Error", message: "Exercises requires at least one category to be enabled before uploading.", preferredStyle: .alert)
+            failAlert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: {
+                (action) in
+                return
+            }))
+            self.present(failAlert, animated: true, completion: nil)
+            return
+        }
+        
         let alert = UIAlertController(title: "Confirmation", message: "Ready to upload '\(self.exercise.name!)'?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Upload", style: .default, handler: {
             [weak self] (action) in
             guard let this = self else { return }
-            this.transerEnabledCategories()
             
             //Firebase Database
             let exercisesRef = FIRDatabase.database().reference().child("exercises")
@@ -162,16 +179,21 @@ class CategorizeTableViewController: UITableViewController, UITextFieldDelegate 
                 this.present(progressAlert, animated: true, completion: nil)
             }
             
-            exerciseRef.setValue(["name": this.exercise.name!, "enabledCategories": this.exercise.enabledCategories!])
+            exerciseRef.setValue(["name": this.exercise.name!, "enabledCategories": this.exercise.enabledCategories!, "globalMovement": this.exercise.globalMovement!])
         }))
         self.present(alert, animated: true, completion: nil)
     }
 
-    func transerEnabledCategories() {
+    func transferEnabledCategories() {
         for focusPoint in focusPoints {
             for (catID, toggleValue) in focusPoint.togglevalues {
                 if toggleValue == true {
-                    self.exercise.addEnabledCategory(categoryID: catID, value: toggleValue)
+                    if let name = focusPoint.firebase[catID] {
+                        self.exercise.addEnabledCategory(categoryID: catID, value: name)
+                    }
+                    if self.movementIDs.contains(catID) {
+                        self.exercise.globalMovement = catID
+                    }
                 }
             }
         }
