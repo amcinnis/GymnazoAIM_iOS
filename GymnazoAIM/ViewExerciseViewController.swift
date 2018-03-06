@@ -35,7 +35,7 @@ class ViewExerciseViewController: UIViewController, UITableViewDelegate, UITable
         
         if let exercise = exercise {
             self.navigationItem.title = exercise.name
-            let videoRef = FIRStorage.storage().reference().child("exercises").child(exercise.id!)
+            let videoRef = Storage.storage().reference().child("exercises").child(exercise.id!)
             videoRef.downloadURL(completion: {
                 (url, error) in
                 guard error == nil else {

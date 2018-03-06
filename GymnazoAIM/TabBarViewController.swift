@@ -18,7 +18,7 @@ class TabBarViewController: UITabBarController {
         // Do any additional setup after loading the view.
         
         //Google Sign-in
-        FIRAuth.auth()?.addStateDidChangeListener() {
+        Auth.auth().addStateDidChangeListener() {
             [weak self] (auth, user) in
             guard let this = self else { return }
             if user == nil {

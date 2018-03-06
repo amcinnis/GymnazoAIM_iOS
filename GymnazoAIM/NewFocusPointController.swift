@@ -51,7 +51,7 @@ class NewFocusPointController: UIViewController, UITableViewDelegate, UITableVie
         self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
-    func valuesChanged() {
+    @objc func valuesChanged() {
         if !(nameField.text?.isEmpty)! && self.categories.count > 0 {
             doneButton.isEnabled = true
         }
@@ -66,7 +66,7 @@ class NewFocusPointController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     @IBAction func done(_ sender: Any) {
-        let databaseRef = FIRDatabase.database().reference()
+        let databaseRef = Database.database().reference()
         let categoryNamesRef = databaseRef.child("category_names")
         if let focusPointName = nameField.text {
             if (focusPointName.rangeOfCharacter(from: NSCharacterSet.alphanumerics) != nil) {
@@ -94,7 +94,7 @@ class NewFocusPointController: UIViewController, UITableViewDelegate, UITableVie
                 var valid = true
                 for category in categories {
                     if let range = category.rangeOfCharacter(from: .decimalDigits) {
-                        if category == category.substring(with: range) {
+                        if category == category[range] {
                             valid = false
                             let alert = UIAlertController(title: "Invalid Category Name: \"\(category)\"", message: "Category names must contain at least one character.", preferredStyle: .alert)
                             let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)

@@ -25,10 +25,10 @@ class AccountViewController: UIViewController {
     
     @IBAction func signOut(_ sender: Any) {
         GIDSignIn.sharedInstance().signOut()
-        let auth = FIRAuth.auth()
+        let auth = Auth.auth()
         do {
-            let username = auth?.currentUser?.displayName
-            try auth?.signOut()
+            let username = auth.currentUser?.displayName
+            try auth.signOut()
             if let username = username {
                 print("\(username) successfully signed out.")
             }

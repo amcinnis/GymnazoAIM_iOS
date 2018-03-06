@@ -28,7 +28,7 @@ class SearchViewController: UITableViewController {
         self.definesPresentationContext = true
         self.tableView.tableHeaderView = searchController.searchBar
         
-        let exercisesRef = FIRDatabase.database().reference().child("exercises")
+        let exercisesRef = Database.database().reference().child("exercises")
         
         exercisesRef.observe(.childAdded, with: {
             [weak self] (snapshot) in

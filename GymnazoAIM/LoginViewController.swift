@@ -16,7 +16,7 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        FIRAuth.auth()?.addStateDidChangeListener() {
+        Auth.auth().addStateDidChangeListener() {
             [weak self] (auth, user) in
             guard let this = self else { return }
             if user != nil {

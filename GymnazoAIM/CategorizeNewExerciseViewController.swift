@@ -1,11 +1,13 @@
 //
-//  CategorizeTableViewController.swift
+//  CategorizeNewExerciseViewController.swift
 //  GymnazoAIM
 //
-//  Created by Local Account 123-28 on 3/17/17.
+//  Created by Austin McInnis on 4/8/17.
 //  Copyright © 2017 Austin McInnis. All rights reserved.
 //
 
+import AVFoundation
+import AVKit
 import Firebase
 import FirebaseStorage
 import UIKit
@@ -20,25 +22,57 @@ class NewExerciseCategoryCell: UITableViewCell {
     
 }
 
-// MARK: - CategorizeViewController
+class CategorizeNewExerciseViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
 
-class CategorizeTableViewController: UITableViewController, UITextFieldDelegate {
-
+    @IBOutlet var mediaView: UIView!
+    @IBOutlet var categorizeTableView: UITableView!
+    
+    private var doneAction: UIAlertAction?
     private var exercise = Exercise()
     private var focusPoints = [FocusPoint]()
     private var movementIDs = [String]()
-    private var doneAction: UIAlertAction?
     var video: Video?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        // Do any additional setup after loading the view.
         
+        // Media Controller Initialization
+        let controller = AVPlayerViewController()
+        controller.view.frame = CGRect(x: 0, y: 0, width: mediaView.frame.width, height: mediaView.frame.height)
+        if let video = video {
+            controller.player = AVPlayer(url: video.url)
+        }
+        self.addChildViewController(controller)
+        mediaView.addSubview(controller.view)
+    
+        // TableView Inititialization
+        categorizeTableView.delegate = self
+        categorizeTableView.dataSource = self
+        
+        let categoryNamesRef = Database.database().reference().child("category_names")
+        
+        categoryNamesRef.observe(.childAdded, with: {
+            [weak self] (snapshot) in
+            guard let this = self else { return }
+            
+            let focusPointName = snapshot.key
+            let firebase = snapshot.value
+            
+            let focusPoint = FocusPoint(name: focusPointName, firebase: firebase as! [String:String])
+            this.focusPoints.append(focusPoint)
+            if focusPoint.name == "Global Movements" {
+                for movement in focusPoint.firebase {
+                    this.movementIDs.append(movement.key)
+                }
+            }
+            
+            let set = IndexSet.init(integer: this.focusPoints.count-1)
+            this.categorizeTableView.insertSections(set, with: .automatic)
+        })
+        
+        // Title
         let alert = UIAlertController(title: "Enter Exercise Title", message: "Please enter the title of the exercise", preferredStyle: .alert)
         alert.addTextField(configurationHandler: {
             [weak self] (textField) in
@@ -63,46 +97,10 @@ class CategorizeTableViewController: UITableViewController, UITextFieldDelegate 
         doneAction?.isEnabled = false
         alert.addAction(doneAction!)
         self.present(alert, animated: true, completion: nil)
-        
-        let categoryNamesRef = FIRDatabase.database().reference().child("category_names")
-        
-        categoryNamesRef.observe(.childAdded, with: {
-            [weak self] (snapshot) in
-            guard let this = self else { return }
-            
-            let focusPointName = snapshot.key
-            let firebase = snapshot.value
-            
-            let focusPoint = FocusPoint(name: focusPointName, firebase: firebase as! [String:String])
-            this.focusPoints.append(focusPoint)
-            if focusPoint.name == "Global Movements" {
-                for movement in focusPoint.firebase {
-                    this.movementIDs.append(movement.key)
-                }
-            }
-            
-            let set = IndexSet.init(integer: this.focusPoints.count-1)
-            this.tableView.insertSections(set, with: .automatic)
-        })
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    @IBAction func cancel(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func toggleChanged(_ sender: UISwitch) {
-        if let cell = sender.superview?.superview as? NewExerciseCategoryCell {
-            if let indexPath = self.tableView.indexPath(for: cell) {
-                let focusPoint = focusPoints[indexPath.section]
-                focusPoint.togglevalues[cell.catID!] = sender.isOn
-            }
-            
-        }
+    @IBAction func cancel(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func upload(_ sender: Any) {
@@ -124,7 +122,7 @@ class CategorizeTableViewController: UITableViewController, UITextFieldDelegate 
             guard let this = self else { return }
             
             //Firebase Database
-            let exercisesRef = FIRDatabase.database().reference().child("exercises")
+            let exercisesRef = Database.database().reference().child("exercises")
             let exerciseRef = exercisesRef.childByAutoId()
             this.exercise.id = exerciseRef.key
             this.video?.id = exerciseRef.key
@@ -132,9 +130,9 @@ class CategorizeTableViewController: UITableViewController, UITextFieldDelegate 
             
             //Firebase Storage
             if let video = this.video {
-                let exerciseVideosRefStorage = FIRStorage.storage().reference().child("exercises")
+                let exerciseVideosRefStorage = Storage.storage().reference().child("exercises")
                 let videoRef = exerciseVideosRefStorage.child(video.id!)
-                let uploadTask = videoRef.putFile(video.url, metadata: nil, completion: {
+                let uploadTask = videoRef.putFile(from: video.url, metadata: nil, completion: {
                     [weak self] (metadata, error) in
                     guard let this = self else { return }
                     if let error = error {
@@ -183,7 +181,7 @@ class CategorizeTableViewController: UITableViewController, UITextFieldDelegate 
         }))
         self.present(alert, animated: true, completion: nil)
     }
-
+    
     func transferEnabledCategories() {
         for focusPoint in focusPoints {
             for (catID, toggleValue) in focusPoint.togglevalues {
@@ -199,9 +197,24 @@ class CategorizeTableViewController: UITableViewController, UITextFieldDelegate 
         }
     }
     
+    @IBAction func toggleChanged(_ sender: UISwitch) {
+        if let cell = sender.superview?.superview as? NewExerciseCategoryCell {
+            if let indexPath = self.categorizeTableView.indexPath(for: cell) {
+                let focusPoint = focusPoints[indexPath.section]
+                focusPoint.togglevalues[cell.catID!] = sender.isOn
+            }
+            
+        }
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
     // MARK: - Text Field Delegate
     
-    func textChanged(_ sender: UITextField) {
+    @objc func textChanged(_ sender: UITextField) {
         self.doneAction?.isEnabled = !(sender.text?.isEmpty)!
     }
     
@@ -209,72 +222,32 @@ class CategorizeTableViewController: UITableViewController, UITextFieldDelegate 
         return false
     }
     
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+    // MARK: - TableView Data Source
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return focusPoints[section].name
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         return focusPoints.count
     }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return focusPoints[section].categories.count
     }
 
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewExerciseCategoryCell", for: indexPath) as! NewExerciseCategoryCell
-
-        // Configure the cell...
+        
         let catName = focusPoints[indexPath.section].categories[indexPath.row]
         cell.title.text = catName
         cell.catID = focusPoints[indexPath.section].ids[catName]
         cell.toggleSwitch.isOn = focusPoints[indexPath.section].togglevalues[cell.catID!]!
         cell.selectionStyle = .none
-
+        
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return focusPoints[section].name
-    }
-    
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
     /*
     // MARK: - Navigation
 

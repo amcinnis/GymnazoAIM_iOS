@@ -45,7 +45,6 @@ class NewExerciseViewController: UIViewController, UINavigationControllerDelegat
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let videoURL = info[UIImagePickerControllerMediaURL] as? URL
-        print("\(videoURL)")
         
         if let url = videoURL {
             video = Video(url: url)
@@ -66,7 +65,7 @@ class NewExerciseViewController: UIViewController, UINavigationControllerDelegat
         imagePicker.dismiss(animated: true, completion: {
             [weak self] in
             guard let this = self else { return }
-            this.performSegue(withIdentifier: "presentSplit", sender: nil)
+            this.performSegue(withIdentifier: "CategorizeNewExercise", sender: nil)
         })
     }
 
@@ -74,20 +73,11 @@ class NewExerciseViewController: UIViewController, UINavigationControllerDelegat
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-        if segue.identifier == "presentSplit" {
-            if let splitVC = segue.destination as? UISplitViewController {
-//                splitVC.preferredDisplayMode = .automatic
-                if let video = video {
-                    let avPlayerVC = AVPlayerViewController()
-                    avPlayerVC.player = AVPlayer(url: video.url)
-                    avPlayerVC.showsPlaybackControls = true
-                    splitVC.viewControllers[0] = avPlayerVC
-                    if let nav = splitVC.viewControllers[1] as? UINavigationController {
-                        if let catTableVC = nav.topViewController as? CategorizeTableViewController {
-                            catTableVC.video = video
-                        }
+        if segue.identifier == "CategorizeNewExercise" {
+            if let nav = segue.destination as? UINavigationController {
+                if let dest = nav.topViewController as? CategorizeNewExerciseViewController {
+                    if let video = video {
+                        dest.video = video
                     }
                 }
             }

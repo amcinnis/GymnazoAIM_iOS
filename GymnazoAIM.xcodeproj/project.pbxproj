@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		981DA2A41E7CA79D00DDB8A8 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981DA2A31E7CA79D00DDB8A8 /* Video.swift */; };
-		981DA2AC1E7CC6D800DDB8A8 /* CategorizeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981DA2AB1E7CC6D800DDB8A8 /* CategorizeTableViewController.swift */; };
 		981DA2AE1E7CCAA000DDB8A8 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981DA2AD1E7CCAA000DDB8A8 /* Exercise.swift */; };
 		984B02D91E76584200400548 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 984B02D81E76584200400548 /* GoogleService-Info.plist */; };
 		984B02DB1E765CDB00400548 /* NewExerciseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984B02DA1E765CDB00400548 /* NewExerciseViewController.swift */; };
@@ -28,6 +27,7 @@
 		98C37B661E8130C800BDABF0 /* ViewExerciseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C37B651E8130C800BDABF0 /* ViewExerciseViewController.swift */; };
 		98C37B681E81528B00BDABF0 /* search-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C37B671E81528B00BDABF0 /* search-7.png */; };
 		98C37B6A1E8153E000BDABF0 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C37B691E8153E000BDABF0 /* SearchViewController.swift */; };
+		D565689C1E99A14F00AACF4E /* CategorizeNewExerciseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D565689B1E99A14F00AACF4E /* CategorizeNewExerciseViewController.swift */; };
 		D59185C91E76541000564FFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59185C81E76541000564FFE /* AppDelegate.swift */; };
 		D59185CE1E76541000564FFE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D59185CC1E76541000564FFE /* Main.storyboard */; };
 		D59185D01E76541000564FFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D59185CF1E76541000564FFE /* Assets.xcassets */; };
@@ -39,7 +39,6 @@
 /* Begin PBXFileReference section */
 		58BAD26F2EBDC97E4FBD6E0C /* Pods_GymnazoAIM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GymnazoAIM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		981DA2A31E7CA79D00DDB8A8 /* Video.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
-		981DA2AB1E7CC6D800DDB8A8 /* CategorizeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategorizeTableViewController.swift; sourceTree = "<group>"; };
 		981DA2AD1E7CCAA000DDB8A8 /* Exercise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		984B02D81E76584200400548 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		984B02DA1E765CDB00400548 /* NewExerciseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewExerciseViewController.swift; sourceTree = "<group>"; };
@@ -61,6 +60,7 @@
 		98C37B691E8153E000BDABF0 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		B94878EEF466BD170D6698E2 /* Pods-GymnazoAIM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GymnazoAIM.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GymnazoAIM/Pods-GymnazoAIM.debug.xcconfig"; sourceTree = "<group>"; };
 		C8A327C0663618C85F61839F /* Pods-GymnazoAIM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GymnazoAIM.release.xcconfig"; path = "Pods/Target Support Files/Pods-GymnazoAIM/Pods-GymnazoAIM.release.xcconfig"; sourceTree = "<group>"; };
+		D565689B1E99A14F00AACF4E /* CategorizeNewExerciseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategorizeNewExerciseViewController.swift; sourceTree = "<group>"; };
 		D59185C51E76541000564FFE /* GymnazoAIM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GymnazoAIM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D59185C81E76541000564FFE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D59185CD1E76541000564FFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -123,8 +123,8 @@
 				D59185C81E76541000564FFE /* AppDelegate.swift */,
 				D59185CC1E76541000564FFE /* Main.storyboard */,
 				984B02E81E7675BA00400548 /* AccountViewController.swift */,
+				D565689B1E99A14F00AACF4E /* CategorizeNewExerciseViewController.swift */,
 				985B47031E78DFD200E0992C /* CategoriesTableViewController.swift */,
-				981DA2AB1E7CC6D800DDB8A8 /* CategorizeTableViewController.swift */,
 				985B46FD1E78D9C600E0992C /* FocusPoint.swift */,
 				981DA2AD1E7CCAA000DDB8A8 /* Exercise.swift */,
 				98C37B631E812C0800BDABF0 /* ExercisesTableViewController.swift */,
@@ -181,12 +181,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Austin McInnis";
 				TargetAttributes = {
 					D59185C41E76541000564FFE = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = CM86EZ9GM9;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -236,13 +237,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GymnazoAIM-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A5A310BC9B5BD65C49B6F7FC /* [CP] Embed Pods Frameworks */ = {
@@ -251,9 +255,20 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-GymnazoAIM/Pods-GymnazoAIM-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -266,9 +281,12 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-GymnazoAIM/Pods-GymnazoAIM-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -283,6 +301,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5A3172A1E790A9E006DF5B8 /* NewFocusPointController.swift in Sources */,
+				D565689C1E99A14F00AACF4E /* CategorizeNewExerciseViewController.swift in Sources */,
 				984B02E51E766E0700400548 /* TabBarViewController.swift in Sources */,
 				984B02E91E7675BA00400548 /* AccountViewController.swift in Sources */,
 				98C37B641E812C0800BDABF0 /* ExercisesTableViewController.swift in Sources */,
@@ -296,7 +315,6 @@
 				981DA2AE1E7CCAA000DDB8A8 /* Exercise.swift in Sources */,
 				984B02DB1E765CDB00400548 /* NewExerciseViewController.swift in Sources */,
 				985B46FE1E78D9C600E0992C /* FocusPoint.swift in Sources */,
-				981DA2AC1E7CC6D800DDB8A8 /* CategorizeTableViewController.swift in Sources */,
 				985B47041E78DFD200E0992C /* CategoriesTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -332,7 +350,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -340,7 +360,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -382,7 +406,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -390,7 +416,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -423,11 +453,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = CM86EZ9GM9;
 				INFOPLIST_FILE = GymnazoAIM/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = amcinnis.GymnazoAIM;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -438,11 +469,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = CM86EZ9GM9;
 				INFOPLIST_FILE = GymnazoAIM/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = amcinnis.GymnazoAIM;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

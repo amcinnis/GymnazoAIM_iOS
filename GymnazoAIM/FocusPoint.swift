@@ -11,9 +11,9 @@ import Firebase
 
 public class FocusPoint {
     
-    let categoryNamesRef = FIRDatabase.database().reference().child("category_names")
+    let categoryNamesRef = Database.database().reference().child("category_names")
     var name: String
-    var categories: [String] // array of ctegory names
+    var categories: [String] // array of category names
     var ids: [String:String] //key is category, value is id
     var firebase: [String:String] //key is id, value is category
     var edits: [String:String]? //key is category id, value is new category name

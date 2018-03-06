@@ -23,7 +23,7 @@ class MovementsTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        let globalMovementsRef = FIRDatabase.database().reference().child("category_names").child("Global Movements")
+        let globalMovementsRef = Database.database().reference().child("category_names").child("Global Movements")
         
         globalMovementsRef.observe(.childAdded, with: {
             [weak self] (snapshot) in
@@ -34,7 +34,7 @@ class MovementsTableViewController: UITableViewController {
             this.tableView.insertRows(at: [IndexPath(row: this.movements.count-1, section:0)], with: .automatic)
         })
         
-        let exercisesRef = FIRDatabase.database().reference().child("exercises")
+        let exercisesRef = Database.database().reference().child("exercises")
         
         exercisesRef.observe(.childAdded, with: {
             [weak self] (snapshot) in

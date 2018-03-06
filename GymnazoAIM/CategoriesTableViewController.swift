@@ -47,7 +47,7 @@ class CategoriesTableViewController: UITableViewController, UITextFieldDelegate,
         self.navigationItem.rightBarButtonItems = [addFocusPointButton]
         
         //Firebase
-        let database = FIRDatabase.database().reference()
+        let database = Database.database().reference()
         let categoryNames = database.child("category_names")
         categoryNames.observe(.childAdded, with: {
             [weak self] (snapshot) in
@@ -117,12 +117,28 @@ class CategoriesTableViewController: UITableViewController, UITextFieldDelegate,
             let focusPoint = focusPoints[indexPath.section]
             let modelValue = focusPoint.categories[indexPath.row]
             if sender.text != modelValue {
-                edited = true
-                print("Value changed from \"\(modelValue)\" to \"\(sender.text!)\"!")
-                focusPoint.editCatName(indexPath: indexPath, newName: sender.text!)
+                if let category = sender.text?.trimmingCharacters(in: .whitespacesAndNewlines) {
+                    //Rejects numeric only categories
+                    guard CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: category)) == false else {
+                        let alert = UIAlertController(title: "Invalid Category Name: \"\(category)\"", message: "Category names must contain at least one character.", preferredStyle: .alert)
+                        let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)
+                        alert.addAction(dismissAction)
+                        self.present(alert, animated: true, completion: nil)
+//                        sender.becomeFirstResponder()
+                        return
+                    }
+                    print("Value changed from \"\(modelValue)\" to \"\(category)\"!")
+                    focusPoint.editCatName(indexPath: indexPath, newName: category)
+                }
             }
         }
         
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        print("Here")
+        textField.resignFirstResponder()
+        return true
     }
     
     // MARK: - Table view data source
@@ -223,7 +239,7 @@ class CategoriesTableViewController: UITableViewController, UITextFieldDelegate,
             this.edited = false
             for focusPoint in this.focusPoints {
                 if let edits = focusPoint.edits {
-                    let fpRef = FIRDatabase.database().reference().child("category_names").child(focusPoint.name)
+                    let fpRef = Database.database().reference().child("category_names").child(focusPoint.name)
                     fpRef.updateChildValues(edits)
                     focusPoint.edits = nil
                 }
@@ -252,6 +268,7 @@ class CategoriesTableViewController: UITableViewController, UITextFieldDelegate,
                 this.deleteButton.title = "Delete"
                 this.deleteButton.isEnabled = false
             }
+            this.setEditing(false, animated: true)
         }))
         self.present(alert, animated: true, completion: nil)
     }
@@ -274,6 +291,30 @@ class CategoriesTableViewController: UITableViewController, UITextFieldDelegate,
         }
         else {
             self.navigationItem.rightBarButtonItems = [addFocusPointButton]
+            
+            let sectionsSet = IndexSet(integersIn: 0..<tableView.numberOfSections)
+            var deletePaths: [IndexPath]?
+            for section in sectionsSet {
+                let focusPoint = focusPoints[section]
+                for index in 0..<tableView(tableView, numberOfRowsInSection: section) {
+                    let indexPath = IndexPath(row: index, section: section)
+                    if let cell = tableView(tableView, cellForRowAt: indexPath) as? CategoryCell {
+                        print(cell.title.text!)
+                        guard cell.title.text?.isEmpty == false else {
+                            if deletePaths == nil {
+                                deletePaths = [IndexPath]()
+                            }
+                            focusPoint.removeCatName(indexPath: indexPath)
+                            deletePaths?.append(indexPath)
+                            continue
+                        }
+                    }
+                }
+            }
+            
+            if let deletePaths = deletePaths {
+                tableView.deleteRows(at: deletePaths, with: .automatic)
+            }
         }
         reloadSections()
     }
