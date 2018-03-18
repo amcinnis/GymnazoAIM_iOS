@@ -30,7 +30,7 @@ class CategorizeNewExerciseViewController: UIViewController, UITextFieldDelegate
     private var doneAction: UIAlertAction?
     private var exercise = Exercise()
     private var focusPoints = [FocusPoint]()
-    private var movementIDs = [String]()
+    private var movementIDs = [String:String]()
     var video: Video?
     
     override func viewDidLoad() {
@@ -64,7 +64,7 @@ class CategorizeNewExerciseViewController: UIViewController, UITextFieldDelegate
             this.focusPoints.append(focusPoint)
             if focusPoint.name == "Global Movements" {
                 for movement in focusPoint.firebase {
-                    this.movementIDs.append(movement.key)
+                    this.movementIDs[movement.key] = movement.value
                 }
             }
             
@@ -105,6 +105,8 @@ class CategorizeNewExerciseViewController: UIViewController, UITextFieldDelegate
     
     @IBAction func upload(_ sender: Any) {
         self.transferEnabledCategories()
+        
+        //Check for at least one enabled category.
         guard (self.exercise.enabledCategories != nil) else {
             let failAlert = UIAlertController(title: "Error", message: "Exercises requires at least one category to be enabled before uploading.", preferredStyle: .alert)
             failAlert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: {
@@ -112,6 +114,14 @@ class CategorizeNewExerciseViewController: UIViewController, UITextFieldDelegate
                 return
             }))
             self.present(failAlert, animated: true, completion: nil)
+            return
+        }
+        
+        // Check for Global Movement
+        guard self.exercise.globalMovementID != nil else {
+            let globalAlert = UIAlertController(title: "Global Movement Required", message: "Please select a global movement to categorize this exercise.", preferredStyle: .alert)
+            globalAlert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+            self.present(globalAlert, animated: true, completion: nil)
             return
         }
         
@@ -123,15 +133,22 @@ class CategorizeNewExerciseViewController: UIViewController, UITextFieldDelegate
             
             //Firebase Database
             let exercisesRef = Database.database().reference().child("exercises")
-            let exerciseRef = exercisesRef.childByAutoId()
-            this.exercise.id = exerciseRef.key
-            this.video?.id = exerciseRef.key
-            this.video?.name = this.exercise.name
+            let databaseGlobalRef = exercisesRef.child(this.exercise.globalMovementStr!)
+            let exerciseRef = databaseGlobalRef.childByAutoId()
+            this.exercise.databaseID = exerciseRef.key
+            this.exercise.databasePath = "exercises/" + this.exercise.globalMovementStr! + "/" + exerciseRef.key
+            this.exercise.storagePath = this.exercise.databasePath
             
             //Firebase Storage
             if let video = this.video {
                 let exerciseVideosRefStorage = Storage.storage().reference().child("exercises")
-                let videoRef = exerciseVideosRefStorage.child(video.id!)
+                let storageGlobalRef = exerciseVideosRefStorage.child(this.exercise.globalMovementStr!)
+                let videoRef = storageGlobalRef.child(exerciseRef.key)
+                this.video?.name = this.exercise.name
+                this.video?.databaseID = exerciseRef.key
+                this.video?.databasePath = this.exercise.databasePath
+                this.video?.storagePath = this.exercise.databasePath
+                
                 let uploadTask = videoRef.putFile(from: video.url, metadata: nil, completion: {
                     [weak self] (metadata, error) in
                     guard let this = self else { return }
@@ -177,7 +194,14 @@ class CategorizeNewExerciseViewController: UIViewController, UITextFieldDelegate
                 this.present(progressAlert, animated: true, completion: nil)
             }
             
-            exerciseRef.setValue(["name": this.exercise.name!, "enabledCategories": this.exercise.enabledCategories!, "globalMovement": this.exercise.globalMovement!])
+            exerciseRef.setValue([
+                "name": this.exercise.name!,
+                "enabledCategories": this.exercise.enabledCategories!,
+                "globalMovementID": this.exercise.globalMovementID!,
+                "globalMovementStr": this.exercise.globalMovementStr!,
+                "databasePath": this.exercise.databasePath!,
+                "storagePath": this.exercise.storagePath!
+                ])
         }))
         self.present(alert, animated: true, completion: nil)
     }
@@ -189,8 +213,9 @@ class CategorizeNewExerciseViewController: UIViewController, UITextFieldDelegate
                     if let name = focusPoint.firebase[catID] {
                         self.exercise.addEnabledCategory(categoryID: catID, value: name)
                     }
-                    if self.movementIDs.contains(catID) {
-                        self.exercise.globalMovement = catID
+                    if self.movementIDs[catID] != nil {
+                        self.exercise.globalMovementID = catID
+                        self.exercise.globalMovementStr = self.movementIDs[catID]
                     }
                 }
             }

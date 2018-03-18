@@ -99,6 +99,35 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		D550910A204E47B200E31C80 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				985B46FD1E78D9C600E0992C /* FocusPoint.swift */,
+				98C37B611E81093300BDABF0 /* GlobalMovement.swift */,
+				981DA2AD1E7CCAA000DDB8A8 /* Exercise.swift */,
+				981DA2A31E7CA79D00DDB8A8 /* Video.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D550910C204E47C100E31C80 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				984B02E81E7675BA00400548 /* AccountViewController.swift */,
+				D565689B1E99A14F00AACF4E /* CategorizeNewExerciseViewController.swift */,
+				985B47031E78DFD200E0992C /* CategoriesTableViewController.swift */,
+				98C37B631E812C0800BDABF0 /* ExercisesTableViewController.swift */,
+				984B02E01E7667FA00400548 /* LoginViewController.swift */,
+				98C37B5F1E8100C000BDABF0 /* MovementsTableViewController.swift */,
+				984B02DA1E765CDB00400548 /* NewExerciseViewController.swift */,
+				D5A317291E790A9E006DF5B8 /* NewFocusPointController.swift */,
+				98C37B691E8153E000BDABF0 /* SearchViewController.swift */,
+				984B02E41E766E0700400548 /* TabBarViewController.swift */,
+				98C37B651E8130C800BDABF0 /* ViewExerciseViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		D59185BC1E76541000564FFE = {
 			isa = PBXGroup;
 			children = (
@@ -122,21 +151,8 @@
 			children = (
 				D59185C81E76541000564FFE /* AppDelegate.swift */,
 				D59185CC1E76541000564FFE /* Main.storyboard */,
-				984B02E81E7675BA00400548 /* AccountViewController.swift */,
-				D565689B1E99A14F00AACF4E /* CategorizeNewExerciseViewController.swift */,
-				985B47031E78DFD200E0992C /* CategoriesTableViewController.swift */,
-				985B46FD1E78D9C600E0992C /* FocusPoint.swift */,
-				981DA2AD1E7CCAA000DDB8A8 /* Exercise.swift */,
-				98C37B631E812C0800BDABF0 /* ExercisesTableViewController.swift */,
-				98C37B611E81093300BDABF0 /* GlobalMovement.swift */,
-				984B02E01E7667FA00400548 /* LoginViewController.swift */,
-				98C37B5F1E8100C000BDABF0 /* MovementsTableViewController.swift */,
-				984B02DA1E765CDB00400548 /* NewExerciseViewController.swift */,
-				D5A317291E790A9E006DF5B8 /* NewFocusPointController.swift */,
-				98C37B691E8153E000BDABF0 /* SearchViewController.swift */,
-				984B02E41E766E0700400548 /* TabBarViewController.swift */,
-				981DA2A31E7CA79D00DDB8A8 /* Video.swift */,
-				98C37B651E8130C800BDABF0 /* ViewExerciseViewController.swift */,
+				D550910A204E47B200E31C80 /* Model */,
+				D550910C204E47C100E31C80 /* Controller */,
 				D59185CF1E76541000564FFE /* Assets.xcassets */,
 				D59185D11E76541000564FFE /* LaunchScreen.storyboard */,
 				984B02E61E76758400400548 /* circle-user-7.png */,

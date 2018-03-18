@@ -10,22 +10,31 @@ import Foundation
 
 class Exercise {
     var name: String?
-    var id: String?
+    var databaseID: String?
+    var databasePath: String?
+    var storagePath: String?
+    var globalMovementID: String?
+    var globalMovementStr: String?
     var enabledCategories: [String:String]?
-    var globalMovement: String?
     var video: Video?
     var creationDate: Date?
     var movementOrganized: Bool?
+    var notes: String?
     
     init() {
         
     }
     
-    init(id: String, name: String, globalMovement: String, enabled: [String:String]) {
-        self.id = id
+    init(databaseID: String, name: String, globalMovementID: String,
+         globalMovementStr: String, databasePath: String, storagePath: String,
+         enabled: [String:String]) {
+        self.databaseID = databaseID
         self.name = name
         self.enabledCategories = enabled
-        self.globalMovement = globalMovement
+        self.globalMovementID = globalMovementID
+        self.globalMovementStr = globalMovementStr
+        self.databasePath = databasePath
+        self.storagePath = storagePath
         self.movementOrganized = false
     }
     

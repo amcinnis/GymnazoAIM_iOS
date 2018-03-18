@@ -9,11 +9,14 @@
 import Foundation
 
 class Video {
-    var id: String?
     var name: String?
+    var databaseID: String?
+    var databasePath: String?
+    var storagePath: String?
     var url: URL
     var uploadDate: Date?
     var creationDate: Date?
+    var notes: String?
     
     init(url: URL) {
         self.url = url

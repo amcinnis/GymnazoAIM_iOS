@@ -32,8 +32,38 @@ class NewExerciseViewController: UIViewController, UINavigationControllerDelegat
     }
     
     @IBAction func recordExercise(_ sender: Any) {
-        imagePicker.sourceType = .camera
-        present(imagePicker, animated: true, completion: nil)
+        let cameraMediaType = AVMediaType.video
+        let cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: cameraMediaType)
+        
+        switch cameraAuthorizationStatus {
+            case .denied: break
+            case .authorized: presentCamera()
+            case .restricted: break
+            
+            case .notDetermined:
+                // Prompting user for the permission to use the camera.
+                AVCaptureDevice.requestAccess(for: cameraMediaType) {
+                    [weak self] granted in
+                    guard let this = self else { return }
+                    
+                    if granted {
+                        print("Granted access to \(cameraMediaType)")
+                        this.presentCamera()
+                    } else {
+                        print("Denied access to \(cameraMediaType)")
+                    }
+                }
+        }
+    }
+    
+    func presentCamera() {
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            imagePicker.sourceType = .camera
+            present(imagePicker, animated: true, completion: nil)
+        }
+        else {
+            print ("Camera not available")
+        }
     }
     
     @IBAction func importExercise(_ sender: Any) {
