@@ -33,6 +33,7 @@
 		D59185D01E76541000564FFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D59185CF1E76541000564FFE /* Assets.xcassets */; };
 		D59185D31E76541000564FFE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D59185D11E76541000564FFE /* LaunchScreen.storyboard */; };
 		D5A3172A1E790A9E006DF5B8 /* NewFocusPointController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A317291E790A9E006DF5B8 /* NewFocusPointController.swift */; };
+		D5F00D33205DFFF3008D9892 /* AccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F00D32205DFFF3008D9892 /* AccountTableViewController.swift */; };
 		D7FB3D8C2EC0E66B332BC314 /* Pods_GymnazoAIM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58BAD26F2EBDC97E4FBD6E0C /* Pods_GymnazoAIM.framework */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +69,7 @@
 		D59185D21E76541000564FFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D59185D41E76541000564FFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D5A317291E790A9E006DF5B8 /* NewFocusPointController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFocusPointController.swift; sourceTree = "<group>"; };
+		D5F00D32205DFFF3008D9892 /* AccountTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				984B02E81E7675BA00400548 /* AccountViewController.swift */,
+				D5F00D32205DFFF3008D9892 /* AccountTableViewController.swift */,
 				D565689B1E99A14F00AACF4E /* CategorizeNewExerciseViewController.swift */,
 				985B47031E78DFD200E0992C /* CategoriesTableViewController.swift */,
 				98C37B631E812C0800BDABF0 /* ExercisesTableViewController.swift */,
@@ -325,6 +328,7 @@
 				984B02E11E7667FA00400548 /* LoginViewController.swift in Sources */,
 				98C37B621E81093300BDABF0 /* GlobalMovement.swift in Sources */,
 				981DA2A41E7CA79D00DDB8A8 /* Video.swift in Sources */,
+				D5F00D33205DFFF3008D9892 /* AccountTableViewController.swift in Sources */,
 				D59185C91E76541000564FFE /* AppDelegate.swift in Sources */,
 				98C37B661E8130C800BDABF0 /* ViewExerciseViewController.swift in Sources */,
 				98C37B6A1E8153E000BDABF0 /* SearchViewController.swift in Sources */,

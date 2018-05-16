@@ -228,25 +228,71 @@
                     <view key="view" contentMode="scaleToFill" id="aNh-yF-Rnr">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QvP-ut-44P">
-                                <rect key="frame" x="354" y="443" width="60" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Sign Out">
-                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="signOut:" destination="UC3-hI-LWC" eventType="touchUpInside" id="rX5-2U-QMl"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Account" image="circle-user-7.png" id="m2b-u9-J7w"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CPq-mz-rJt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="841" y="2033"/>
+            <point key="canvasLocation" x="248" y="2020"/>
+        </scene>
+        <!--Account-->
+        <scene sceneID="gVu-d8-sWd">
+            <objects>
+                <tableViewController id="JZU-CS-ZeM" customClass="AccountTableViewController" customModule="GymnazoAIM" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="kJJ-Db-AGI">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="EditCategoriesCell" textLabel="WDL-Uo-Dec" style="IBUITableViewCellStyleDefault" id="5qP-jI-LFv">
+                                <rect key="frame" x="0.0" y="55.5" width="768" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5qP-jI-LFv" id="Hfk-kH-Qdl">
+                                    <rect key="frame" x="0.0" y="0.0" width="768" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Edit Categories" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WDL-Uo-Dec">
+                                            <rect key="frame" x="20" y="0.0" width="728" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="zg4-os-qiH" kind="show" id="kOq-Ia-uja"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SignOutCell" id="mKS-rv-yIb">
+                                <rect key="frame" x="0.0" y="99.5" width="768" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mKS-rv-yIb" id="mOg-xH-Dby">
+                                    <rect key="frame" x="0.0" y="0.0" width="768" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QvP-ut-44P">
+                                            <rect key="frame" x="354" y="6" width="60" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="Sign Out">
+                                                <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                        </button>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="JZU-CS-ZeM" id="SAV-Fx-0ob"/>
+                            <outlet property="delegate" destination="JZU-CS-ZeM" id="kJL-kr-Ami"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Account" image="circle-user-7.png" id="V5b-sk-fsk"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JjV-7t-oPE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="996" y="2020"/>
         </scene>
         <!--Select Video-->
         <scene sceneID="htB-ON-qhy">
@@ -421,8 +467,7 @@
                         <segue destination="eou-9M-E7n" kind="relationship" relationship="viewControllers" id="mqP-Tg-hYk"/>
                         <segue destination="0eL-cE-tVU" kind="relationship" relationship="viewControllers" id="7gN-Eo-fAp"/>
                         <segue destination="Ex9-tA-NOx" kind="relationship" relationship="viewControllers" id="1O2-zS-tK7"/>
-                        <segue destination="zg4-os-qiH" kind="relationship" relationship="viewControllers" id="def-gx-sRF"/>
-                        <segue destination="UC3-hI-LWC" kind="relationship" relationship="viewControllers" id="Gx9-Vj-MAw"/>
+                        <segue destination="JZU-CS-ZeM" kind="relationship" relationship="viewControllers" id="7Ex-1R-kX0"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nXv-yj-heI" userLabel="First Responder" sceneMemberID="firstResponder"/>
