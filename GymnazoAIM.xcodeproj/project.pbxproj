@@ -17,7 +17,6 @@
 		984B02E31E766B6A00400548 /* GMNZO.png in Resources */ = {isa = PBXBuildFile; fileRef = 984B02E21E766B6A00400548 /* GMNZO.png */; };
 		984B02E51E766E0700400548 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984B02E41E766E0700400548 /* TabBarViewController.swift */; };
 		984B02E71E76758400400548 /* circle-user-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 984B02E61E76758400400548 /* circle-user-7.png */; };
-		984B02E91E7675BA00400548 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984B02E81E7675BA00400548 /* AccountViewController.swift */; };
 		985B46FE1E78D9C600E0992C /* FocusPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985B46FD1E78D9C600E0992C /* FocusPoint.swift */; };
 		985B47001E78DDC300E0992C /* list-simple-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 985B46FF1E78DDC300E0992C /* list-simple-7.png */; };
 		985B47041E78DFD200E0992C /* CategoriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985B47031E78DFD200E0992C /* CategoriesTableViewController.swift */; };
@@ -49,7 +48,6 @@
 		984B02E21E766B6A00400548 /* GMNZO.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GMNZO.png; sourceTree = "<group>"; };
 		984B02E41E766E0700400548 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		984B02E61E76758400400548 /* circle-user-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle-user-7.png"; sourceTree = "<group>"; };
-		984B02E81E7675BA00400548 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		985B46FD1E78D9C600E0992C /* FocusPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusPoint.swift; sourceTree = "<group>"; };
 		985B46FF1E78DDC300E0992C /* list-simple-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list-simple-7.png"; sourceTree = "<group>"; };
 		985B47031E78DFD200E0992C /* CategoriesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesTableViewController.swift; sourceTree = "<group>"; };
@@ -115,7 +113,6 @@
 		D550910C204E47C100E31C80 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				984B02E81E7675BA00400548 /* AccountViewController.swift */,
 				D5F00D32205DFFF3008D9892 /* AccountTableViewController.swift */,
 				D565689B1E99A14F00AACF4E /* CategorizeNewExerciseViewController.swift */,
 				985B47031E78DFD200E0992C /* CategoriesTableViewController.swift */,
@@ -322,7 +319,6 @@
 				D5A3172A1E790A9E006DF5B8 /* NewFocusPointController.swift in Sources */,
 				D565689C1E99A14F00AACF4E /* CategorizeNewExerciseViewController.swift in Sources */,
 				984B02E51E766E0700400548 /* TabBarViewController.swift in Sources */,
-				984B02E91E7675BA00400548 /* AccountViewController.swift in Sources */,
 				98C37B641E812C0800BDABF0 /* ExercisesTableViewController.swift in Sources */,
 				98C37B601E8100C000BDABF0 /* MovementsTableViewController.swift in Sources */,
 				984B02E11E7667FA00400548 /* LoginViewController.swift in Sources */,

@@ -26,6 +26,7 @@ class NewFocusPointController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
 
+    var currentTextField: UITextField?
     var delegate: NewFocusPointDelegate?
     @IBOutlet var nameField: UITextField!
     @IBOutlet var categoryTableView: UITableView!
@@ -66,6 +67,7 @@ class NewFocusPointController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     @IBAction func done(_ sender: Any) {
+        currentTextField?.resignFirstResponder()
         let databaseRef = Database.database().reference()
         let categoryNamesRef = databaseRef.child("category_names")
         if let focusPointName = nameField.text {
@@ -132,28 +134,21 @@ class NewFocusPointController: UIViewController, UITableViewDelegate, UITableVie
     @IBAction func categoryNameEntered(_ sender: UITextField) {
         if let cell = sender.superview?.superview as? NewCategoryCell {
             if let indexPath = self.categoryTableView.indexPath(for: cell) {
-                self.categories[indexPath.row] = sender.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                let text = sender.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                guard !text.isEmpty else { return }
+                self.categories[indexPath.row] = text
                 print("Categories: \(self.categories)")
             }
         }
     }
     
-//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//        if !(textField.text?.isEmpty)!{
-//            self.editButtonItem.isEnabled = true
-//        }
-//        else {
-//            self.editButtonItem.isEnabled = false
-//        }
-//        
-//        return true
-//    }
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.currentTextField = textField
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == self.nameField {
-            self.nameField.resignFirstResponder()
-        }
-        else {
+        textField.resignFirstResponder()
+        if textField != self.nameField {
             textField.resignFirstResponder()
             if let cell = textField.superview?.superview as? NewCategoryCell {
                 if let indexPath = self.categoryTableView.indexPath(for: cell) {
@@ -216,8 +211,6 @@ class NewFocusPointController: UIViewController, UITableViewDelegate, UITableVie
             return cell
         }
     }
-    
-    
     
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)

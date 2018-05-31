@@ -15,9 +15,11 @@ class ViewExerciseViewController: UIViewController, UITableViewDelegate, UITable
 
     @IBOutlet weak var mediaView: UIView!
     @IBOutlet weak var categoryTable: UITableView!
-
+    @IBOutlet var queueButton: UIBarButtonItem!
+    
     var exercise: Exercise?
     var enabledCats = [String]()
+    var queue:[Exercise]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +29,10 @@ class ViewExerciseViewController: UIViewController, UITableViewDelegate, UITable
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        
+        let tabbar = tabBarController as! TabBarViewController
+        queue = tabbar.queue
         
         let controller = AVPlayerViewController()
         controller.view.frame = CGRect(x: 0, y: 0, width: mediaView.frame.width, height: mediaView.frame.height)
@@ -61,7 +67,15 @@ class ViewExerciseViewController: UIViewController, UITableViewDelegate, UITable
         }
         self.categoryTable.reloadData()
     }
-
+    
+    @IBAction func addToQueue(_ sender: Any) {
+        if let exercise = exercise {
+            queue?.append(exercise)
+            queueButton?.title = "Added To Queue"
+            queueButton?.isEnabled = false
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

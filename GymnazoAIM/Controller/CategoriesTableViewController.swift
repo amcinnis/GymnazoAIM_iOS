@@ -22,16 +22,6 @@ class CategoriesTableViewController: UITableViewController, UITextFieldDelegate,
     @IBOutlet var cancelButton: UIBarButtonItem!
     @IBOutlet var deleteButton: UIBarButtonItem!
     @IBOutlet var saveButton: UIBarButtonItem!
-    private var edited = false {
-        didSet {
-            if edited == true && oldValue == false {
-                self.navigationItem.leftBarButtonItems = [cancelButton, saveButton]
-            }
-            else if edited == false && oldValue == true {
-                self.navigationItem.leftBarButtonItems = [self.editButtonItem]
-            }
-        }
-    }
     private var newFocusPoint = false
     
     var focusPoints = [FocusPoint]()
@@ -43,8 +33,8 @@ class CategoriesTableViewController: UITableViewController, UITextFieldDelegate,
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        self.navigationItem.leftBarButtonItems = [self.editButtonItem]
-        self.navigationItem.rightBarButtonItems = [addFocusPointButton]
+        self.navigationItem.rightBarButtonItems = [self.editButtonItem]
+//        self.navigationItem.rightBarButtonItems = [addFocusPointButton]
         
         //Firebase
         let database = Database.database().reference()
@@ -141,15 +131,26 @@ class CategoriesTableViewController: UITableViewController, UITextFieldDelegate,
         return true
     }
     
-    // MARK: - Table view data source
+    // MARK: - Table View data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
+//        if tableView.isEditing {
+//            return self.focusPoints.count + 1
+//        }
+//
         return self.focusPoints.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
+//        if tableView.isEditing {
+//            //Insert row for New Focus Point
+//            if (section == 0) { return 1 }
+//            else {
+//                return self.focusPoints[section-1].categories.count + 1
+//            }
+//        }
         if tableView.isEditing {
             return self.focusPoints[section].categories.count + 1
         }
@@ -157,31 +158,50 @@ class CategoriesTableViewController: UITableViewController, UITextFieldDelegate,
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == focusPoints[indexPath.section].categories.count {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "AddCategoryCell", for: indexPath)
-            return cell
-        }
-        else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath) as! CategoryCell
-
-            // Configure the cell...
-            cell.textField.delegate = self
-            if tableView.isEditing {
-                cell.textField.isHidden = false
-                cell.title.isHidden = true
-                cell.textField.text = focusPoints[indexPath.section].categories[indexPath.row]
-                cell.selectionStyle = .default
+//        if tableView.isEditing && indexPath.section == 0 {
+//            return tableView.dequeueReusableCell(withIdentifier: "NewFocusPointCell")!
+//        }
+//        else {
+//            let section = (tableView.isEditing) ? indexPath.section - 1 : indexPath.section
+            let section = indexPath.section
+            if indexPath.row == focusPoints[section].categories.count {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "AddCategoryCell", for: indexPath)
+                return cell
             }
             else {
-                cell.textField.isHidden = true
-                cell.title.isHidden = false
-                cell.title.text = focusPoints[indexPath.section].categories[indexPath.row]
-                cell.selectionStyle = .none
+                let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell") as! CategoryCell
+
+                // Configure the cell...
+                cell.textField.delegate = self
+                if tableView.isEditing {
+                    cell.textField.isHidden = false
+                    cell.title.isHidden = true
+                    cell.textField.text = focusPoints[section].categories[indexPath.row]
+                    cell.selectionStyle = .default
+                }
+                else {
+                    cell.textField.isHidden = true
+                    cell.title.isHidden = false
+                    cell.title.text = focusPoints[section].categories[indexPath.row]
+                    cell.selectionStyle = .none
+                }
+                return cell
             }
- 
-            return cell
-        }
+//        }
     }
+
+    //MARK: UITableViewDelegate
+    
+//    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+//        if tableView.isEditing {
+//            if indexPath.section == 0 { return .none }
+//        }
+//        let section = (tableView.isEditing) ? indexPath.section - 1 : indexPath.section
+//        let catCount = focusPoints[section].categories.count
+//        if indexPath.row == catCount { return .none }
+//
+//        return .delete
+//    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView.isEditing {
@@ -236,7 +256,7 @@ class CategoriesTableViewController: UITableViewController, UITextFieldDelegate,
         alert.addAction(UIAlertAction(title: "Save", style: .default, handler: {
             [weak self] (alert) in
             guard let this = self else { return }
-            this.edited = false
+//            this.edited = false
             for focusPoint in this.focusPoints {
                 if let edits = focusPoint.edits {
                     let fpRef = Database.database().reference().child("category_names").child(focusPoint.name)
@@ -250,9 +270,8 @@ class CategoriesTableViewController: UITableViewController, UITextFieldDelegate,
     }
     
     @IBAction func cancelEdit(_ sender: Any) {
-        edited = false
-        reloadSections()
-        self.navigationItem.leftBarButtonItems = [self.editButtonItem]
+//        edited = false
+        self.setEditing(false, animated: true)
     }
     
     @IBAction func deleteRows(_ sender: Any) {
@@ -274,29 +293,40 @@ class CategoriesTableViewController: UITableViewController, UITextFieldDelegate,
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        if tableView.isEditing {
+//            if section == 0 {
+//                return "New Focus Point"
+//            }
+//            else {
+//                return self.focusPoints[section-1].name
+//            }
+//        }
         return self.focusPoints[section].name
     }
     
-    func reloadSections() {
-        let sectionsSet = IndexSet(integersIn: 0..<tableView.numberOfSections)
-        tableView.reloadSections(sectionsSet, with: .automatic)
-    }
+//    func reloadSections() {
+//        let sectionsSet = IndexSet(integersIn: 0..<tableView.numberOfSections)
+//        tableView.reloadSections(sectionsSet, with: .automatic)
+//    }
 
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         if editing == true {
-            self.navigationItem.rightBarButtonItems = [deleteButton]
+            self.navigationItem.rightBarButtonItems = [cancelButton, deleteButton, saveButton]
             deleteButton.title = "Delete"
             deleteButton.isEnabled = false
         }
         else {
-            self.navigationItem.rightBarButtonItems = [addFocusPointButton]
+            self.navigationItem.rightBarButtonItems = [editButtonItem]
             
             let sectionsSet = IndexSet(integersIn: 0..<tableView.numberOfSections)
             var deletePaths: [IndexPath]?
-            for section in sectionsSet {
+            for sect in sectionsSet {
+                if sect == 0 { continue }
+                let section = sect - 1
                 let focusPoint = focusPoints[section]
-                for index in 0..<tableView(tableView, numberOfRowsInSection: section) {
+//                for index in 0..<tableView(tableView, numberOfRowsInSection: section) {
+                for index in 0..<focusPoint.categories.count {
                     let indexPath = IndexPath(row: index, section: section)
                     if let cell = tableView(tableView, cellForRowAt: indexPath) as? CategoryCell {
                         print(cell.title.text!)
@@ -304,7 +334,8 @@ class CategoriesTableViewController: UITableViewController, UITextFieldDelegate,
                             if deletePaths == nil {
                                 deletePaths = [IndexPath]()
                             }
-                            focusPoint.removeCatName(indexPath: indexPath)
+                            // TODO: Find case to use commented line. May need to change due to guard condition.
+//                            focusPoint.removeCatName(indexPath: indexPath)
                             deletePaths?.append(indexPath)
                             continue
                         }
@@ -316,7 +347,7 @@ class CategoriesTableViewController: UITableViewController, UITextFieldDelegate,
                 tableView.deleteRows(at: deletePaths, with: .automatic)
             }
         }
-        reloadSections()
+        self.tableView.reloadData()
     }
     
     // Override to support conditional editing of the table view.
@@ -360,7 +391,6 @@ class CategoriesTableViewController: UITableViewController, UITextFieldDelegate,
         return true
     }
     */
-
 
     // MARK: - Navigation
 

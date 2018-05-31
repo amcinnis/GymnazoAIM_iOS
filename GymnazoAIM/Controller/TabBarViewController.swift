@@ -11,7 +11,9 @@ import FirebaseAuth
 import GoogleSignIn
 
 class TabBarViewController: UITabBarController {
-
+    
+    var queue = [Exercise]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

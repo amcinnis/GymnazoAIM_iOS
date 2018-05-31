@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import GoogleSignIn
 
 class AccountTableViewController: UITableViewController {
 
@@ -18,6 +20,21 @@ class AccountTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    @IBAction func signOut(_ sender: Any) {
+        GIDSignIn.sharedInstance().signOut()
+        let auth = Auth.auth()
+        do {
+            let username = auth.currentUser?.displayName
+            try auth.signOut()
+            if let username = username {
+                print("\(username) successfully signed out.")
+            }
+        }
+        catch let signOutError as NSError {
+            print("Error signing out: \(signOutError.localizedDescription)")
+        }
     }
 
     override func didReceiveMemoryWarning() {

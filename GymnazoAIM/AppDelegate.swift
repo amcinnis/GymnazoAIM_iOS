@@ -43,16 +43,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         
         guard let authentication = user.authentication else { return }
         let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
-        Auth.auth().signIn(with: credential) {
-            (user, error) in
+        Auth.auth().signInAndRetrieveData(with: credential, completion: { (result, error) in
             if let error = error {
                 print(error.localizedDescription)
             }
             
-            if let username = user?.displayName {
+            if let username = result?.user.displayName {
                 print("\(username) successfully signed in.")
             }
-        }
+        })
     }
     
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
