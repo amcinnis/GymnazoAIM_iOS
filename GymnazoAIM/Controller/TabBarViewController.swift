@@ -10,14 +10,27 @@ import UIKit
 import FirebaseAuth
 import GoogleSignIn
 
-class TabBarViewController: UITabBarController {
+
+protocol QueueTableDelegate {
+    func updateTable()
+}
+
+class TabBarViewController: UITabBarController, UITabBarControllerDelegate, QueueDataSourceDelegate {
     
-    var queue = [Exercise]()
+    var queue = [Exercise]() {
+        didSet {
+            if let delegate = queueTableDelegate {
+                delegate.updateTable()
+            }
+        }
+    }
+    var queueTableDelegate:QueueTableDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        self.delegate = self
         
         //Google Sign-in
         Auth.auth().addStateDidChangeListener() {
@@ -28,21 +41,30 @@ class TabBarViewController: UITabBarController {
             }
         }
     }
+    
+    func queueHasChanged(queue: [Exercise]) {
+        self.queue = queue
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    // MARK: - Tab Bar Controller Delegate
+//    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+//        
+//        if let selectedNav = viewController as? UINavigationController {
+//            if let movementsTableVC = selectedNav.topViewController as? MovementsTableViewController {
+//                movementsTableVC.queueDataDelegate = self
+//            }
+//            else if let searchVC = selectedNav.topViewController as? SearchViewController {
+//                searchVC.queueDataDelegate = self
+//            }
+//        }
+//        else if let splitVC = viewController as? QueueSplitViewController {
+//            splitVC.queueDataDelegate = self
+//        }
+//    }
 
 }

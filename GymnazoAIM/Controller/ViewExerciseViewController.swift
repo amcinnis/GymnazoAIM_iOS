@@ -11,6 +11,10 @@ import AVFoundation
 import FirebaseStorage
 import UIKit
 
+protocol QueueDataSourceDelegate {
+    func queueHasChanged(queue:[Exercise])
+}
+
 class ViewExerciseViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var mediaView: UIView!
@@ -20,19 +24,17 @@ class ViewExerciseViewController: UIViewController, UITableViewDelegate, UITable
     var exercise: Exercise?
     var enabledCats = [String]()
     var queue:[Exercise]?
+    var queueDataDelegate:QueueDataSourceDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //Queue data source
-        let tabbar = tabBarController as! TabBarViewController
-        queue = tabbar.queue
-        if let exercise = exercise {
-            if (queue?.contains(where: {$0.databaseID == exercise.databaseID}))! {
-                queueButton.title = "Remove From Queue"
-                queueButton.tintColor = .red
-            }
+        if let tabBarVC = tabBarController as? TabBarViewController  {
+            queueDataDelegate = tabBarVC
         }
+        
+        updateQueueButton()
         
         let controller = AVPlayerViewController()
         controller.view.frame = CGRect(x: 0, y: 0, width: mediaView.frame.width, height: mediaView.frame.height)
@@ -59,6 +61,9 @@ class ViewExerciseViewController: UIViewController, UITableViewDelegate, UITable
                 }
             })
         }
+        else {
+            hideAllViews()
+        }
         
         if let categories = exercise?.enabledCategories {
             for entry in categories {
@@ -66,6 +71,22 @@ class ViewExerciseViewController: UIViewController, UITableViewDelegate, UITable
             }
         }
         self.categoryTable.reloadData()
+    }
+    
+    func updateQueueButton() {
+        if let tabBarVC = tabBarController as? TabBarViewController {
+            self.queue = tabBarVC.queue
+        }
+        if let exercise = exercise {
+            if (queue?.contains(where: {$0.databaseID == exercise.databaseID}))! {
+                queueButton.title = "Remove From Queue"
+                queueButton.tintColor = .red
+            }
+            else {
+                queueButton.title = "Add To Queue"
+                queueButton.tintColor = .blue
+            }
+        }
     }
     
     @IBAction func toggleInQueue(_ sender: Any) {
@@ -83,15 +104,31 @@ class ViewExerciseViewController: UIViewController, UITableViewDelegate, UITable
                 queueButton.tintColor = .red
             }
         }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        if let tabbar = tabBarController as? TabBarViewController {
-            if let queue = queue {
-                tabbar.queue = queue
-            }
+        if let delegate = queueDataDelegate {
+            delegate.queueHasChanged(queue: self.queue!)
+        }
+        if splitViewController != nil {
+            hideAllViews()
         }
     }
+    
+    func hideAllViews() {
+        view.subviews.forEach({ $0.isHidden = true })
+        self.navigationItem.title = nil
+        self.navigationItem.rightBarButtonItem = nil
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        updateQueueButton()
+    }
+    
+//    override func viewWillDisappear(_ animated: Bool) {
+//        if let tabbar = tabBarController as? TabBarViewController {
+//            if let queue = queue {
+//                tabbar.queue = queue
+//            }
+//        }
+//    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

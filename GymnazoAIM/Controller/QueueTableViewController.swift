@@ -8,9 +8,10 @@
 
 import UIKit
 
-class QueueTableViewController: UITableViewController {
+class QueueTableViewController: UITableViewController, QueueTableDelegate {
 
     var queue:[Exercise]?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +21,9 @@ class QueueTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
+        if let tabBarVC = tabBarController as? TabBarViewController {
+            tabBarVC.queueTableDelegate = self
+        }
         getQueue()
     }
 
@@ -30,11 +33,16 @@ class QueueTableViewController: UITableViewController {
     }
     
     func getQueue() {
-        let tabbar = tabBarController as! TabBarViewController
-        queue = tabbar.queue
+        if let tabbar = tabBarController as? TabBarViewController {
+            queue = tabbar.queue
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        updateTable()
+    }
+    
+    func updateTable() {
         getQueue()
         tableView.reloadData()
     }
@@ -102,7 +110,6 @@ class QueueTableViewController: UITableViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "detail" {
-            print("here")
             if let nav = segue.destination as? UINavigationController {
                 if let dest = nav.topViewController as? ViewExerciseViewController {
                     if let cell = sender as? ExerciseCell {

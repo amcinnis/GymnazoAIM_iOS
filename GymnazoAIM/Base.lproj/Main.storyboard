@@ -256,7 +256,7 @@
             </objects>
             <point key="canvasLocation" x="3248" y="3348"/>
         </scene>
-        <!--Root View Controller-->
+        <!--Workout Queue-->
         <scene sceneID="ajQ-Qk-ahx">
             <objects>
                 <tableViewController clearsSelectionOnViewWillAppear="NO" id="YCG-xg-mMv" customClass="QueueTableViewController" customModule="GymnazoAIM" customModuleProvider="target" sceneMemberID="viewController">
@@ -298,7 +298,7 @@
                             <outlet property="delegate" destination="YCG-xg-mMv" id="Zg1-9C-6Lu"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="Jx3-xd-Hcx"/>
+                    <navigationItem key="navigationItem" title="Workout Queue" id="Jx3-xd-Hcx"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oba-VI-UWK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -670,11 +670,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bFx-8o-mwQ" userLabel="Media View">
-                                <rect key="frame" x="20" y="72" width="728" height="347"/>
+                                <rect key="frame" x="20" y="72" width="728" height="327.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="33q-zn-r0u">
-                                <rect key="frame" x="20" y="439" width="728" height="521"/>
+                                <rect key="frame" x="20" y="419.5" width="728" height="491.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ExerciseCategoryCell" textLabel="6nL-RA-eGr" style="IBUITableViewCellStyleDefault" id="jBS-R4-Yar">
@@ -859,7 +859,7 @@
         <image name="search-7.png" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="rup-hT-aVw"/>
+        <segue reference="wgn-OF-YuR"/>
         <segue reference="w2U-xd-aa1"/>
     </inferredMetricsTieBreakers>
 </document>
