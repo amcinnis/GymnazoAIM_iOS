@@ -20,7 +20,8 @@ class QueueTableViewController: UITableViewController, QueueTableDelegate {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
         if let tabBarVC = tabBarController as? TabBarViewController {
             tabBarVC.queueTableDelegate = self
         }
@@ -70,6 +71,22 @@ class QueueTableViewController: UITableViewController, QueueTableDelegate {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return .none
+    }
+    
+    override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        if self.queue != nil {
+            let movedExercise = queue![sourceIndexPath.row]
+            queue!.remove(at: sourceIndexPath.row)
+            queue!.insert(movedExercise, at: destinationIndexPath.row)
+            print("Moved exercise: \(movedExercise.name ?? "Nil exercise name") from row \(sourceIndexPath.row) to \(destinationIndexPath.row)")
+        }
+    }
 
     /*
     // Override to support conditional editing of the table view.
