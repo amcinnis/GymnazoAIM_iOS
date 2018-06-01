@@ -23,16 +23,16 @@ class ViewExerciseViewController: UIViewController, UITableViewDelegate, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
-        
+        //Queue data source
         let tabbar = tabBarController as! TabBarViewController
         queue = tabbar.queue
+        if let exercise = exercise {
+            if (queue?.contains(where: {$0.databaseID == exercise.databaseID}))! {
+                queueButton.title = "Remove From Queue"
+                queueButton.tintColor = .red
+            }
+        }
         
         let controller = AVPlayerViewController()
         controller.view.frame = CGRect(x: 0, y: 0, width: mediaView.frame.width, height: mediaView.frame.height)
@@ -68,11 +68,28 @@ class ViewExerciseViewController: UIViewController, UITableViewDelegate, UITable
         self.categoryTable.reloadData()
     }
     
-    @IBAction func addToQueue(_ sender: Any) {
+    @IBAction func toggleInQueue(_ sender: Any) {
         if let exercise = exercise {
-            queue?.append(exercise)
-            queueButton?.title = "Added To Queue"
-            queueButton?.isEnabled = false
+            if (queue?.contains(where: {$0.databaseID == exercise.databaseID}))! {
+                //Remove from queue
+                queue = queue?.filter() { $0.databaseID != exercise.databaseID }
+                queueButton.title = "Add To Queue"
+                queueButton.tintColor = .blue
+            }
+            else {
+                //Add to queue
+                queue?.append(exercise)
+                queueButton?.title = "Remove From Queue"
+                queueButton.tintColor = .red
+            }
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        if let tabbar = tabBarController as? TabBarViewController {
+            if let queue = queue {
+                tabbar.queue = queue
+            }
         }
     }
     
@@ -106,50 +123,4 @@ class ViewExerciseViewController: UIViewController, UITableViewDelegate, UITable
         return cell
     }
     
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

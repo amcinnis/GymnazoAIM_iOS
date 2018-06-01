@@ -33,6 +33,8 @@
 		D59185D31E76541000564FFE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D59185D11E76541000564FFE /* LaunchScreen.storyboard */; };
 		D5A3172A1E790A9E006DF5B8 /* NewFocusPointController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A317291E790A9E006DF5B8 /* NewFocusPointController.swift */; };
 		D5F00D33205DFFF3008D9892 /* AccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F00D32205DFFF3008D9892 /* AccountTableViewController.swift */; };
+		D5F6A6CF20BFE731002A11C6 /* QueueTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F6A6CE20BFE731002A11C6 /* QueueTableViewController.swift */; };
+		D5F6A6D120BFED11002A11C6 /* QueueSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F6A6D020BFED11002A11C6 /* QueueSplitViewController.swift */; };
 		D7FB3D8C2EC0E66B332BC314 /* Pods_GymnazoAIM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58BAD26F2EBDC97E4FBD6E0C /* Pods_GymnazoAIM.framework */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +70,8 @@
 		D59185D41E76541000564FFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D5A317291E790A9E006DF5B8 /* NewFocusPointController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFocusPointController.swift; sourceTree = "<group>"; };
 		D5F00D32205DFFF3008D9892 /* AccountTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewController.swift; sourceTree = "<group>"; };
+		D5F6A6CE20BFE731002A11C6 /* QueueTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueTableViewController.swift; sourceTree = "<group>"; };
+		D5F6A6D020BFED11002A11C6 /* QueueSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueSplitViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +125,8 @@
 				98C37B5F1E8100C000BDABF0 /* MovementsTableViewController.swift */,
 				984B02DA1E765CDB00400548 /* NewExerciseViewController.swift */,
 				D5A317291E790A9E006DF5B8 /* NewFocusPointController.swift */,
+				D5F6A6D020BFED11002A11C6 /* QueueSplitViewController.swift */,
+				D5F6A6CE20BFE731002A11C6 /* QueueTableViewController.swift */,
 				98C37B691E8153E000BDABF0 /* SearchViewController.swift */,
 				984B02E41E766E0700400548 /* TabBarViewController.swift */,
 				98C37B651E8130C800BDABF0 /* ViewExerciseViewController.swift */,
@@ -317,6 +323,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5A3172A1E790A9E006DF5B8 /* NewFocusPointController.swift in Sources */,
+				D5F6A6CF20BFE731002A11C6 /* QueueTableViewController.swift in Sources */,
 				D565689C1E99A14F00AACF4E /* CategorizeNewExerciseViewController.swift in Sources */,
 				984B02E51E766E0700400548 /* TabBarViewController.swift in Sources */,
 				98C37B641E812C0800BDABF0 /* ExercisesTableViewController.swift in Sources */,
@@ -332,6 +339,7 @@
 				984B02DB1E765CDB00400548 /* NewExerciseViewController.swift in Sources */,
 				985B46FE1E78D9C600E0992C /* FocusPoint.swift in Sources */,
 				985B47041E78DFD200E0992C /* CategoriesTableViewController.swift in Sources */,
+				D5F6A6D120BFED11002A11C6 /* QueueSplitViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
