@@ -27,6 +27,9 @@
 		98C37B681E81528B00BDABF0 /* search-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C37B671E81528B00BDABF0 /* search-7.png */; };
 		98C37B6A1E8153E000BDABF0 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C37B691E8153E000BDABF0 /* SearchViewController.swift */; };
 		D565689C1E99A14F00AACF4E /* CategorizeNewExerciseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D565689B1E99A14F00AACF4E /* CategorizeNewExerciseViewController.swift */; };
+		D584EEE420C628420021EC68 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D584EEE320C628420021EC68 /* Workout.swift */; };
+		D584EEE620C70AEE0021EC68 /* workout.png in Resources */ = {isa = PBXBuildFile; fileRef = D584EEE520C70AED0021EC68 /* workout.png */; };
+		D584EEE820C70B160021EC68 /* WorkoutsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D584EEE720C70B160021EC68 /* WorkoutsTableViewController.swift */; };
 		D59185C91E76541000564FFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59185C81E76541000564FFE /* AppDelegate.swift */; };
 		D59185CE1E76541000564FFE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D59185CC1E76541000564FFE /* Main.storyboard */; };
 		D59185D01E76541000564FFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D59185CF1E76541000564FFE /* Assets.xcassets */; };
@@ -35,6 +38,10 @@
 		D5F00D33205DFFF3008D9892 /* AccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F00D32205DFFF3008D9892 /* AccountTableViewController.swift */; };
 		D5F6A6CF20BFE731002A11C6 /* QueueTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F6A6CE20BFE731002A11C6 /* QueueTableViewController.swift */; };
 		D5F6A6D120BFED11002A11C6 /* QueueSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F6A6D020BFED11002A11C6 /* QueueSplitViewController.swift */; };
+		D5F9133620CA201E00DABBF5 /* WorkoutSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F9133520CA201E00DABBF5 /* WorkoutSplitViewController.swift */; };
+		D5F9133820CA203C00DABBF5 /* WorkoutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F9133720CA203C00DABBF5 /* WorkoutTableViewController.swift */; };
+		D5F9133A20CA284D00DABBF5 /* WorkoutContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F9133920CA284D00DABBF5 /* WorkoutContainerViewController.swift */; };
+		D5F9133C20CA30AC00DABBF5 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F9133B20CA30AC00DABBF5 /* TestViewController.swift */; };
 		D7FB3D8C2EC0E66B332BC314 /* Pods_GymnazoAIM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58BAD26F2EBDC97E4FBD6E0C /* Pods_GymnazoAIM.framework */; };
 /* End PBXBuildFile section */
 
@@ -62,6 +69,9 @@
 		B94878EEF466BD170D6698E2 /* Pods-GymnazoAIM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GymnazoAIM.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GymnazoAIM/Pods-GymnazoAIM.debug.xcconfig"; sourceTree = "<group>"; };
 		C8A327C0663618C85F61839F /* Pods-GymnazoAIM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GymnazoAIM.release.xcconfig"; path = "Pods/Target Support Files/Pods-GymnazoAIM/Pods-GymnazoAIM.release.xcconfig"; sourceTree = "<group>"; };
 		D565689B1E99A14F00AACF4E /* CategorizeNewExerciseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategorizeNewExerciseViewController.swift; sourceTree = "<group>"; };
+		D584EEE320C628420021EC68 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
+		D584EEE520C70AED0021EC68 /* workout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = workout.png; sourceTree = "<group>"; };
+		D584EEE720C70B160021EC68 /* WorkoutsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutsTableViewController.swift; sourceTree = "<group>"; };
 		D59185C51E76541000564FFE /* GymnazoAIM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GymnazoAIM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D59185C81E76541000564FFE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D59185CD1E76541000564FFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -72,6 +82,10 @@
 		D5F00D32205DFFF3008D9892 /* AccountTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewController.swift; sourceTree = "<group>"; };
 		D5F6A6CE20BFE731002A11C6 /* QueueTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueTableViewController.swift; sourceTree = "<group>"; };
 		D5F6A6D020BFED11002A11C6 /* QueueSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueSplitViewController.swift; sourceTree = "<group>"; };
+		D5F9133520CA201E00DABBF5 /* WorkoutSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSplitViewController.swift; sourceTree = "<group>"; };
+		D5F9133720CA203C00DABBF5 /* WorkoutTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTableViewController.swift; sourceTree = "<group>"; };
+		D5F9133920CA284D00DABBF5 /* WorkoutContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutContainerViewController.swift; sourceTree = "<group>"; };
+		D5F9133B20CA30AC00DABBF5 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +124,7 @@
 				98C37B611E81093300BDABF0 /* GlobalMovement.swift */,
 				981DA2AD1E7CCAA000DDB8A8 /* Exercise.swift */,
 				981DA2A31E7CA79D00DDB8A8 /* Video.swift */,
+				D584EEE320C628420021EC68 /* Workout.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -125,11 +140,16 @@
 				98C37B5F1E8100C000BDABF0 /* MovementsTableViewController.swift */,
 				984B02DA1E765CDB00400548 /* NewExerciseViewController.swift */,
 				D5A317291E790A9E006DF5B8 /* NewFocusPointController.swift */,
+				D5F9133B20CA30AC00DABBF5 /* TestViewController.swift */,
 				D5F6A6D020BFED11002A11C6 /* QueueSplitViewController.swift */,
 				D5F6A6CE20BFE731002A11C6 /* QueueTableViewController.swift */,
 				98C37B691E8153E000BDABF0 /* SearchViewController.swift */,
 				984B02E41E766E0700400548 /* TabBarViewController.swift */,
 				98C37B651E8130C800BDABF0 /* ViewExerciseViewController.swift */,
+				D5F9133920CA284D00DABBF5 /* WorkoutContainerViewController.swift */,
+				D5F9133520CA201E00DABBF5 /* WorkoutSplitViewController.swift */,
+				D5F9133720CA203C00DABBF5 /* WorkoutTableViewController.swift */,
+				D584EEE720C70B160021EC68 /* WorkoutsTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -165,6 +185,7 @@
 				984B02DE1E765E0800400548 /* dumbbell-7.png */,
 				984B02E21E766B6A00400548 /* GMNZO.png */,
 				985B46FF1E78DDC300E0992C /* list-simple-7.png */,
+				D584EEE520C70AED0021EC68 /* workout.png */,
 				984B02DC1E765DFC00400548 /* plus-simple-7.png */,
 				98C37B671E81528B00BDABF0 /* search-7.png */,
 				D59185D41E76541000564FFE /* Info.plist */,
@@ -246,6 +267,7 @@
 				984B02DF1E765E0800400548 /* dumbbell-7.png in Resources */,
 				D59185CE1E76541000564FFE /* Main.storyboard in Resources */,
 				984B02E71E76758400400548 /* circle-user-7.png in Resources */,
+				D584EEE620C70AEE0021EC68 /* workout.png in Resources */,
 				984B02E31E766B6A00400548 /* GMNZO.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -328,8 +350,12 @@
 				984B02E51E766E0700400548 /* TabBarViewController.swift in Sources */,
 				98C37B641E812C0800BDABF0 /* ExercisesTableViewController.swift in Sources */,
 				98C37B601E8100C000BDABF0 /* MovementsTableViewController.swift in Sources */,
+				D5F9133620CA201E00DABBF5 /* WorkoutSplitViewController.swift in Sources */,
 				984B02E11E7667FA00400548 /* LoginViewController.swift in Sources */,
+				D584EEE820C70B160021EC68 /* WorkoutsTableViewController.swift in Sources */,
 				98C37B621E81093300BDABF0 /* GlobalMovement.swift in Sources */,
+				D5F9133C20CA30AC00DABBF5 /* TestViewController.swift in Sources */,
+				D5F9133820CA203C00DABBF5 /* WorkoutTableViewController.swift in Sources */,
 				981DA2A41E7CA79D00DDB8A8 /* Video.swift in Sources */,
 				D5F00D33205DFFF3008D9892 /* AccountTableViewController.swift in Sources */,
 				D59185C91E76541000564FFE /* AppDelegate.swift in Sources */,
@@ -337,8 +363,10 @@
 				98C37B6A1E8153E000BDABF0 /* SearchViewController.swift in Sources */,
 				981DA2AE1E7CCAA000DDB8A8 /* Exercise.swift in Sources */,
 				984B02DB1E765CDB00400548 /* NewExerciseViewController.swift in Sources */,
+				D5F9133A20CA284D00DABBF5 /* WorkoutContainerViewController.swift in Sources */,
 				985B46FE1E78D9C600E0992C /* FocusPoint.swift in Sources */,
 				985B47041E78DFD200E0992C /* CategoriesTableViewController.swift in Sources */,
+				D584EEE420C628420021EC68 /* Workout.swift in Sources */,
 				D5F6A6D120BFED11002A11C6 /* QueueSplitViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

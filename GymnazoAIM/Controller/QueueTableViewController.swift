@@ -6,11 +6,14 @@
 //  Copyright © 2018 Austin McInnis. All rights reserved.
 //
 
+import Firebase
 import UIKit
 
-class QueueTableViewController: UITableViewController, QueueTableDelegate {
+class QueueTableViewController: UITableViewController, QueueTableDelegate, UITextFieldDelegate {
 
+    private var doneAction: UIAlertAction?
     var queue:[Exercise]?
+    var workout:Workout?
     
     
     override func viewDidLoad() {
@@ -20,8 +23,8 @@ class QueueTableViewController: UITableViewController, QueueTableDelegate {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
+        self.navigationItem.leftBarButtonItem = self.editButtonItem
+    
         if let tabBarVC = tabBarController as? TabBarViewController {
             tabBarVC.queueTableDelegate = self
         }
@@ -47,7 +50,63 @@ class QueueTableViewController: UITableViewController, QueueTableDelegate {
         getQueue()
         tableView.reloadData()
     }
-
+    
+    @IBAction func upload(_ sender: UIBarButtonItem) {
+        let alert = UIAlertController(title: "New Workout", message: "Please enter the title of the workout", preferredStyle: .alert)
+        alert.addTextField(configurationHandler: {
+            [weak self] (textField) in
+            guard let this = self else { return }
+            textField.delegate = this
+            textField.autocapitalizationType = .words
+            textField.addTarget(this, action: #selector(this.textChanged(_:)), for: .editingChanged)
+        })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {
+            [weak self] (action) in
+            guard let this = self else { return }
+            this.dismiss(animated: true, completion: nil)
+        }))
+        doneAction = UIAlertAction(title: "Done", style: .default, handler: {
+            [weak self] (action) in
+            guard let this = self else { return }
+            
+            let textField = alert.textFields?.first
+            var workoutName:String?
+            if let textField = textField {
+                workoutName = textField.text!
+                print(textField.text!)
+            }
+            
+            if let name = workoutName, let exercises = this.queue {
+                this.workout = Workout(name: name, exercises: exercises)
+                
+                //Firebase Database
+                let workoutsRef = Database.database().reference().child("workouts")
+                let workoutRef = workoutsRef.childByAutoId()
+                
+                if let workout = this.workout {
+                    workout.databaseID = workoutRef.key
+                    workout.databasePath = "workouts/" + workout.databaseID!
+                    
+                    workoutRef.setValue([
+                        "name": name,
+                        "databaseID": workoutRef.key,
+                        "databasePath": workout.databasePath!,
+                        "exercises": workout.getExercisePaths()
+                    ])
+                }
+            }
+        })
+        doneAction?.isEnabled = false
+        alert.addAction(doneAction!)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    // MARK: - Text Field Delegate
+    
+    @objc func textChanged(_ sender: UITextField) {
+        self.doneAction?.isEnabled = !(sender.text?.isEmpty)!
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
