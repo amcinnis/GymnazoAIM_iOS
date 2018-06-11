@@ -42,6 +42,8 @@
 		D5F9133820CA203C00DABBF5 /* WorkoutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F9133720CA203C00DABBF5 /* WorkoutTableViewController.swift */; };
 		D5F9133A20CA284D00DABBF5 /* WorkoutContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F9133920CA284D00DABBF5 /* WorkoutContainerViewController.swift */; };
 		D5F9133C20CA30AC00DABBF5 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F9133B20CA30AC00DABBF5 /* TestViewController.swift */; };
+		D5F9133E20CB151400DABBF5 /* KVVideoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F9133D20CB151400DABBF5 /* KVVideoManager.swift */; };
+		D5F9134020CE7B5200DABBF5 /* silence.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D5F9133F20CE7B5200DABBF5 /* silence.mp3 */; };
 		D7FB3D8C2EC0E66B332BC314 /* Pods_GymnazoAIM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58BAD26F2EBDC97E4FBD6E0C /* Pods_GymnazoAIM.framework */; };
 /* End PBXBuildFile section */
 
@@ -86,6 +88,8 @@
 		D5F9133720CA203C00DABBF5 /* WorkoutTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTableViewController.swift; sourceTree = "<group>"; };
 		D5F9133920CA284D00DABBF5 /* WorkoutContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutContainerViewController.swift; sourceTree = "<group>"; };
 		D5F9133B20CA30AC00DABBF5 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		D5F9133D20CB151400DABBF5 /* KVVideoManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVVideoManager.swift; sourceTree = "<group>"; };
+		D5F9133F20CE7B5200DABBF5 /* silence.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = silence.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +181,7 @@
 			children = (
 				D59185C81E76541000564FFE /* AppDelegate.swift */,
 				D59185CC1E76541000564FFE /* Main.storyboard */,
+				D5F9133D20CB151400DABBF5 /* KVVideoManager.swift */,
 				D550910A204E47B200E31C80 /* Model */,
 				D550910C204E47C100E31C80 /* Controller */,
 				D59185CF1E76541000564FFE /* Assets.xcassets */,
@@ -184,6 +189,7 @@
 				984B02E61E76758400400548 /* circle-user-7.png */,
 				984B02DE1E765E0800400548 /* dumbbell-7.png */,
 				984B02E21E766B6A00400548 /* GMNZO.png */,
+				D5F9133F20CE7B5200DABBF5 /* silence.mp3 */,
 				985B46FF1E78DDC300E0992C /* list-simple-7.png */,
 				D584EEE520C70AED0021EC68 /* workout.png */,
 				984B02DC1E765DFC00400548 /* plus-simple-7.png */,
@@ -258,6 +264,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5F9134020CE7B5200DABBF5 /* silence.mp3 in Resources */,
 				D59185D31E76541000564FFE /* LaunchScreen.storyboard in Resources */,
 				98C37B681E81528B00BDABF0 /* search-7.png in Resources */,
 				985B47001E78DDC300E0992C /* list-simple-7.png in Resources */,
@@ -344,6 +351,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5F9133E20CB151400DABBF5 /* KVVideoManager.swift in Sources */,
 				D5A3172A1E790A9E006DF5B8 /* NewFocusPointController.swift in Sources */,
 				D5F6A6CF20BFE731002A11C6 /* QueueTableViewController.swift in Sources */,
 				D565689C1E99A14F00AACF4E /* CategorizeNewExerciseViewController.swift in Sources */,
