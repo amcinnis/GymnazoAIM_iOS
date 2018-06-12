@@ -401,45 +401,6 @@
             </objects>
             <point key="canvasLocation" x="1691" y="3348"/>
         </scene>
-        <!--Select Video-->
-        <scene sceneID="htB-ON-qhy">
-            <objects>
-                <viewController id="eou-9M-E7n" customClass="NewExerciseViewController" customModule="GymnazoAIM" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="BcV-XT-sn2"/>
-                        <viewControllerLayoutGuide type="bottom" id="JLq-4F-gSP"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="ddp-jM-96f">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ivM-yM-SFj">
-                                <rect key="frame" x="329" y="175" width="110" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Record Exercise"/>
-                                <connections>
-                                    <action selector="recordExercise:" destination="eou-9M-E7n" eventType="touchUpInside" id="1m6-sz-XZ3"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UiL-la-K2K">
-                                <rect key="frame" x="331" y="497" width="107" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Import Exercise"/>
-                                <connections>
-                                    <action selector="importExercise:" destination="eou-9M-E7n" eventType="touchUpInside" id="B4l-Pk-3b9"/>
-                                    <segue destination="rTD-se-fa4" kind="presentation" identifier="CategorizeNewExercise" id="6KO-ko-hfx"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Add" image="plus-simple-7.png" id="OxV-Y9-5Xj"/>
-                    <navigationItem key="navigationItem" title="Select Video" id="Gbl-me-26h"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gPb-vI-x7q" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="925" y="-2031"/>
-        </scene>
         <!--Categorize New Exercise View Controller-->
         <scene sceneID="DId-Ik-6iX">
             <objects>
@@ -453,11 +414,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c73-fx-dMW" userLabel="Media View">
-                                <rect key="frame" x="20" y="72" width="728" height="314.5"/>
+                                <rect key="frame" x="20" y="72" width="728" height="298"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="f1V-KQ-Dqg">
-                                <rect key="frame" x="0.0" y="394.5" width="768" height="629.5"/>
+                                <rect key="frame" x="0.0" y="378" width="768" height="597"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewExerciseCategoryCell" id="fxa-wY-Z2E" customClass="NewExerciseCategoryCell" customModule="GymnazoAIM" customModuleProvider="target">
@@ -529,7 +490,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wbj-tx-mae" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3126" y="-2031"/>
+            <point key="canvasLocation" x="4218" y="-615"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="fuC-dy-ut8">
@@ -571,7 +532,6 @@
                     </tabBar>
                     <connections>
                         <segue destination="T9g-Be-zzA" kind="presentation" identifier="Show Login" id="jBw-Vm-HJj"/>
-                        <segue destination="eou-9M-E7n" kind="relationship" relationship="viewControllers" id="mqP-Tg-hYk"/>
                         <segue destination="A7O-bw-gkU" kind="relationship" relationship="viewControllers" id="yle-Ee-h7p"/>
                         <segue destination="0eL-cE-tVU" kind="relationship" relationship="viewControllers" id="7gN-Eo-fAp"/>
                         <segue destination="Ex9-tA-NOx" kind="relationship" relationship="viewControllers" id="1O2-zS-tK7"/>
@@ -618,7 +578,17 @@
                             <outlet property="delegate" destination="J1H-Kp-Pej" id="xCj-tA-F78"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Global Movements" id="nXc-hW-28F"/>
+                    <navigationItem key="navigationItem" title="Global Movements" id="nXc-hW-28F">
+                        <barButtonItem key="rightBarButtonItem" title="New Exercise" id="rBv-Ui-iSd">
+                            <connections>
+                                <action selector="newExercise:" destination="J1H-Kp-Pej" id="6CG-e0-9T3"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="newExerciseButton" destination="rBv-Ui-iSd" id="LaF-iN-14B"/>
+                        <segue destination="rTD-se-fa4" kind="show" identifier="CategorizeNewExercise" id="2lc-Y9-PN4"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HMt-2n-z99" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -666,7 +636,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yJ1-DU-zgk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4768" y="-1225"/>
+            <point key="canvasLocation" x="4768" y="-2174"/>
         </scene>
         <!--Workout Container View Controller-->
         <scene sceneID="owr-uJ-Hz9">
@@ -693,7 +663,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oAe-ik-KLJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3125.78125" y="-885.3515625"/>
+            <point key="canvasLocation" x="3126" y="-1833"/>
         </scene>
         <!--Workout Split View Controller-->
         <scene sceneID="7Lm-9q-gKW">
@@ -706,7 +676,7 @@
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aiA-6Y-7kB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3919" y="-885"/>
+            <point key="canvasLocation" x="3919" y="-1834"/>
         </scene>
         <!--Exercises Table View Controller-->
         <scene sceneID="cRc-vA-Cw2">
@@ -761,11 +731,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bFx-8o-mwQ" userLabel="Media View">
-                                <rect key="frame" x="20" y="72" width="728" height="347"/>
+                                <rect key="frame" x="20" y="72" width="728" height="327.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="33q-zn-r0u">
-                                <rect key="frame" x="20" y="439" width="728" height="521"/>
+                                <rect key="frame" x="20" y="419.5" width="728" height="491.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ExerciseCategoryCell" textLabel="6nL-RA-eGr" style="IBUITableViewCellStyleDefault" id="jBS-R4-Yar">
@@ -822,7 +792,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pCk-AE-aUB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4245" y="922"/>
+            <point key="canvasLocation" x="4218" y="1202"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="qia-cQ-Tih">
@@ -901,7 +871,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7gT-7J-cAJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2034" y="-888"/>
+            <point key="canvasLocation" x="2034" y="-1836"/>
         </scene>
         <!--Exercises-->
         <scene sceneID="cke-Ih-adi">
@@ -957,7 +927,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BSy-v8-6GZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2034" y="-2031"/>
+            <point key="canvasLocation" x="3126" y="-615"/>
         </scene>
         <!--Account-->
         <scene sceneID="1v6-Ew-YI2">
@@ -995,7 +965,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TI7-ec-bjj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="925" y="-888"/>
+            <point key="canvasLocation" x="925" y="-1836"/>
         </scene>
         <!--Title-->
         <scene sceneID="86B-VC-BNV">
@@ -1064,7 +1034,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eyb-Xp-ihZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4760" y="-546"/>
+            <point key="canvasLocation" x="4759" y="-1494"/>
         </scene>
     </scenes>
     <resources>
@@ -1072,12 +1042,11 @@
         <image name="circle-user-7.png" width="30" height="30"/>
         <image name="dumbbell-7.png" width="30" height="30"/>
         <image name="list-simple-7.png" width="30" height="30"/>
-        <image name="plus-simple-7.png" width="30" height="30"/>
         <image name="search-7.png" width="30" height="30"/>
         <image name="workout.png" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="rup-hT-aVw"/>
+        <segue reference="AGb-2A-POm"/>
         <segue reference="w2U-xd-aa1"/>
     </inferredMetricsTieBreakers>
 </document>
