@@ -13,14 +13,32 @@ import UIKit
 class QueueTableViewController: UITableViewController, QueueTableDelegate, UITextFieldDelegate {
 
     private var doneAction: UIAlertAction?
-    var queue:[Exercise]?
+    var queue:[Exercise]? {
+        didSet {
+            if let queue = self.queue {
+                if queue.count == 0 {
+                    self.uploadButton.isEnabled = false
+                    self.editButtonItem.isEnabled = false
+                }
+                else {
+                    self.uploadButton.isEnabled = true
+                    self.editButtonItem.isEnabled = true
+                }
+            }
+            else {
+                self.uploadButton.isEnabled = false
+                self.editButtonItem.isEnabled = false
+            }
+        }
+    }
     var queueDataDelegate:QueueDataSourceDelegate?
+    @IBOutlet var uploadButton: UIBarButtonItem!
     var videoURLs = [URL]() {
         didSet {
             if let queue = self.queue {
                 if videoURLs.count == queue.count {
                     self.downloadAlert.dismiss(animated: true, completion: {
-                        self.present(self.rendderAlert, animated: true, completion: nil)
+                        self.present(self.renderAlert, animated: true, completion: nil)
                     })
                     buildWorkoutVideo()
                 }
@@ -30,7 +48,7 @@ class QueueTableViewController: UITableViewController, QueueTableDelegate, UITex
     var workout:Workout?
     
     private var downloadAlert = UIAlertController(title: "Downloading...", message: "Gathering exercise videos...", preferredStyle: .alert)
-    private var rendderAlert = UIAlertController(title: "Rendering...", message: "Creating workout video...", preferredStyle: .alert)
+    private var renderAlert = UIAlertController(title: "Rendering...", message: "Creating workout video...", preferredStyle: .alert)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -121,7 +139,7 @@ class QueueTableViewController: UITableViewController, QueueTableDelegate, UITex
                     if let workout = this.workout {
                         let video = Video(url: url)
                         workout.video = video
-                        this.rendderAlert.dismiss(animated: true, completion: nil)
+                        this.renderAlert.dismiss(animated: true, completion: nil)
                         this.pushWorkout()
                     }
                 }

@@ -79,7 +79,7 @@ class ViewExerciseViewController: UIViewController, UITableViewDelegate, UITable
         }
         if let exercise = exercise {
             if (queue?.contains(where: {$0.databaseID == exercise.databaseID}))! {
-                queueButton.title = "Remove From Queue"
+                queueButton.title = "Remove"
                 queueButton.tintColor = .red
             }
             else {
@@ -100,7 +100,7 @@ class ViewExerciseViewController: UIViewController, UITableViewDelegate, UITable
             else {
                 //Add to queue
                 queue?.append(exercise)
-                queueButton?.title = "Remove From Queue"
+                queueButton?.title = "Remove"
                 queueButton.tintColor = .red
             }
         }

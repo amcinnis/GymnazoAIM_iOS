@@ -50,6 +50,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             
             if let username = result?.user.displayName {
                 print("\(username) successfully signed in.")
+                if let tabBarVC = self.window?.rootViewController as? TabBarViewController {
+                    tabBarVC.selectedIndex = 0
+                }
             }
         })
     }
