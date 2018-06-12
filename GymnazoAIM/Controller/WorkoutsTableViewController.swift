@@ -37,10 +37,12 @@ class WorkoutsTableViewController: UITableViewController {
             let databaseID = snapshot.childSnapshot(forPath: "databaseID").value as! String
             let databasePath = snapshot.childSnapshot(forPath: "databasePath").value as! String
             let paths = snapshot.childSnapshot(forPath: "exercises").value as! [String]
+            let storagePath = snapshot.childSnapshot(forPath: "storagePath").value as! String
         
             let workout = Workout(name: name, databaseID: databaseID, databasePath: databasePath, exercisePaths:paths)
             workout.databaseID = databaseID
             workout.databasePath = databasePath
+            workout.storagePath = storagePath
             this.workouts.append(workout)
             this.tableView.insertRows(at: [IndexPath(row: this.workouts.count-1, section: 0)], with: .automatic)
         })

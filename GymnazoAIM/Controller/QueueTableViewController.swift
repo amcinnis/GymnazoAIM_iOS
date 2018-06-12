@@ -14,6 +14,7 @@ class QueueTableViewController: UITableViewController, QueueTableDelegate, UITex
 
     private var doneAction: UIAlertAction?
     var queue:[Exercise]?
+    var queueDataDelegate:QueueDataSourceDelegate?
     var videoURLs = [URL]() {
         didSet {
             if let queue = self.queue {
@@ -54,6 +55,7 @@ class QueueTableViewController: UITableViewController, QueueTableDelegate, UITex
     func getQueue() {
         if let tabbar = tabBarController as? TabBarViewController {
             queue = tabbar.queue
+            queueDataDelegate = tabbar
         }
     }
     
@@ -169,7 +171,15 @@ class QueueTableViewController: UITableViewController, QueueTableDelegate, UITex
                             guard let this = self else { return }
                             this.dismiss(animated: true, completion: nil)
                         }))
-                        this.present(successAlert, animated: true, completion: nil)
+                        this.present(successAlert, animated: true, completion: {
+                            if let delegate = this.queueDataDelegate {
+                                delegate.queueHasChanged(queue: [])
+                                this.updateTable()
+                            }
+                            else {
+                                print("Failed to clear queue and update table: delegate is nil")
+                            }
+                        })
                         print("Upload Success!")
                     }
                     
@@ -194,7 +204,6 @@ class QueueTableViewController: UITableViewController, QueueTableDelegate, UITex
                         guard let this = self else { return }
                         this.dismiss(animated: true, completion: nil)
                     })
-//                    self.present(progressAlert, animated: true, completion: nil)
                 }
             }
         }

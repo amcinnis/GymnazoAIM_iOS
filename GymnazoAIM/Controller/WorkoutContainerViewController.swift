@@ -36,6 +36,7 @@ class WorkoutContainerViewController: UIViewController {
             if let dest = segue.destination as? WorkoutSplitViewController {
                 if let workout = self.workout {
                     dest.workout = workout
+                    self.navigationItem.title = workout.name
                 }
             }
         }

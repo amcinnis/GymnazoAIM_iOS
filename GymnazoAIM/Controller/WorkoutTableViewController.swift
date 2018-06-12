@@ -9,24 +9,25 @@
 import Firebase
 import UIKit
 
+protocol WorkoutTableDataSourceDelegate {
+    func didSelectExercise(exercise: Exercise)
+}
+
 class WorkoutTableViewController: UITableViewController {
     
     var exercises = [Exercise]()
-    @IBOutlet var navBar: UINavigationItem!
     var workout: Workout?
+    var workoutDataDelegate:WorkoutTableDataSourceDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        
         
         //Get workout from split view controller
         if let splitVC = self.splitViewController as? WorkoutSplitViewController, let workout = splitVC.workout {
             self.workout = workout
+            workoutDataDelegate = splitVC
         }
         
         if let workout = self.workout {
@@ -50,10 +51,6 @@ class WorkoutTableViewController: UITableViewController {
                     })
                 }
             }
-        }
-        
-        if let workout = self.workout {
-            navBar.title = workout.name
         }
     }
 
@@ -86,50 +83,8 @@ class WorkoutTableViewController: UITableViewController {
         return cell
     }
     
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let exercise = exercises[indexPath.row]
+        workoutDataDelegate?.didSelectExercise(exercise: exercise)
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

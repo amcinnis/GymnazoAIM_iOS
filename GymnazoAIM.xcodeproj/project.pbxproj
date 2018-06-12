@@ -41,9 +41,9 @@
 		D5F9133620CA201E00DABBF5 /* WorkoutSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F9133520CA201E00DABBF5 /* WorkoutSplitViewController.swift */; };
 		D5F9133820CA203C00DABBF5 /* WorkoutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F9133720CA203C00DABBF5 /* WorkoutTableViewController.swift */; };
 		D5F9133A20CA284D00DABBF5 /* WorkoutContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F9133920CA284D00DABBF5 /* WorkoutContainerViewController.swift */; };
-		D5F9133C20CA30AC00DABBF5 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F9133B20CA30AC00DABBF5 /* TestViewController.swift */; };
 		D5F9133E20CB151400DABBF5 /* KVVideoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F9133D20CB151400DABBF5 /* KVVideoManager.swift */; };
 		D5F9134020CE7B5200DABBF5 /* silence.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D5F9133F20CE7B5200DABBF5 /* silence.mp3 */; };
+		D5F9134220CF0C1100DABBF5 /* ViewWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F9134120CF0C1100DABBF5 /* ViewWorkoutViewController.swift */; };
 		D7FB3D8C2EC0E66B332BC314 /* Pods_GymnazoAIM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58BAD26F2EBDC97E4FBD6E0C /* Pods_GymnazoAIM.framework */; };
 /* End PBXBuildFile section */
 
@@ -87,9 +87,9 @@
 		D5F9133520CA201E00DABBF5 /* WorkoutSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSplitViewController.swift; sourceTree = "<group>"; };
 		D5F9133720CA203C00DABBF5 /* WorkoutTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTableViewController.swift; sourceTree = "<group>"; };
 		D5F9133920CA284D00DABBF5 /* WorkoutContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutContainerViewController.swift; sourceTree = "<group>"; };
-		D5F9133B20CA30AC00DABBF5 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		D5F9133D20CB151400DABBF5 /* KVVideoManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVVideoManager.swift; sourceTree = "<group>"; };
 		D5F9133F20CE7B5200DABBF5 /* silence.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = silence.mp3; sourceTree = "<group>"; };
+		D5F9134120CF0C1100DABBF5 /* ViewWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewWorkoutViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,7 +144,6 @@
 				98C37B5F1E8100C000BDABF0 /* MovementsTableViewController.swift */,
 				984B02DA1E765CDB00400548 /* NewExerciseViewController.swift */,
 				D5A317291E790A9E006DF5B8 /* NewFocusPointController.swift */,
-				D5F9133B20CA30AC00DABBF5 /* TestViewController.swift */,
 				D5F6A6D020BFED11002A11C6 /* QueueSplitViewController.swift */,
 				D5F6A6CE20BFE731002A11C6 /* QueueTableViewController.swift */,
 				98C37B691E8153E000BDABF0 /* SearchViewController.swift */,
@@ -154,6 +153,7 @@
 				D5F9133520CA201E00DABBF5 /* WorkoutSplitViewController.swift */,
 				D5F9133720CA203C00DABBF5 /* WorkoutTableViewController.swift */,
 				D584EEE720C70B160021EC68 /* WorkoutsTableViewController.swift */,
+				D5F9134120CF0C1100DABBF5 /* ViewWorkoutViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -359,10 +359,10 @@
 				98C37B641E812C0800BDABF0 /* ExercisesTableViewController.swift in Sources */,
 				98C37B601E8100C000BDABF0 /* MovementsTableViewController.swift in Sources */,
 				D5F9133620CA201E00DABBF5 /* WorkoutSplitViewController.swift in Sources */,
+				D5F9134220CF0C1100DABBF5 /* ViewWorkoutViewController.swift in Sources */,
 				984B02E11E7667FA00400548 /* LoginViewController.swift in Sources */,
 				D584EEE820C70B160021EC68 /* WorkoutsTableViewController.swift in Sources */,
 				98C37B621E81093300BDABF0 /* GlobalMovement.swift in Sources */,
-				D5F9133C20CA30AC00DABBF5 /* TestViewController.swift in Sources */,
 				D5F9133820CA203C00DABBF5 /* WorkoutTableViewController.swift in Sources */,
 				981DA2A41E7CA79D00DDB8A8 /* Video.swift in Sources */,
 				D5F00D33205DFFF3008D9892 /* AccountTableViewController.swift in Sources */,

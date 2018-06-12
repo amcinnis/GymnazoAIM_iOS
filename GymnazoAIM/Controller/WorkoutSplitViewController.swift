@@ -8,9 +8,21 @@
 
 import UIKit
 
-class WorkoutSplitViewController: UISplitViewController, UISplitViewControllerDelegate {
+protocol SelectedExerciseDelegate {
+    func updateSelectedExercise(exercise: Exercise)
+}
+
+class WorkoutSplitViewController: UISplitViewController, UISplitViewControllerDelegate, WorkoutTableDataSourceDelegate {
     
     var workout: Workout?
+    var selectedExercise:Exercise? {
+        didSet {
+            if let delegate = self.selectedExerciseDelegate, let exercise = selectedExercise {
+                delegate.updateSelectedExercise(exercise: exercise)
+            }
+        }
+    }
+    var selectedExerciseDelegate:SelectedExerciseDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,15 +33,17 @@ class WorkoutSplitViewController: UISplitViewController, UISplitViewControllerDe
     }
     
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
-        if let nav = secondaryViewController as? UINavigationController {
-            if let detail = nav.topViewController as? TestViewController {
-                if detail.workout == nil {
-                    return true
-                }
+        if let detail = secondaryViewController as? ViewWorkoutViewController {
+            if detail.workout == nil {
+                return true
             }
         }
         
         return false
+    }
+    
+    func didSelectExercise(exercise: Exercise) {
+        self.selectedExercise = exercise
     }
 
     override func didReceiveMemoryWarning() {
