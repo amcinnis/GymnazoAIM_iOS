@@ -9,14 +9,14 @@
 import Foundation
 
 class Video {
-    var name: String?
-    var databaseID: String?
-    var databasePath: String?
-    var storagePath: String?
-    var url: URL
-    var uploadDate: Date?
-    var creationDate: Date?
-    var notes: String?
+    var name: String? // Name of video
+    var databaseID: String? // Firebase identifier
+    var databasePath: String? // Realtime Database path
+    var storagePath: String? // Storage path
+    var url: URL // AVAsset URL
+    var uploadDate: Date? // Upload Date
+    var creationDate: Date? // Creation Date
+    var notes: String? // Video notes
     
     init(url: URL) {
         self.url = url

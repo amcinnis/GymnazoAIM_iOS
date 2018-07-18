@@ -164,7 +164,7 @@ class SearchViewController: UITableViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     
-        if segue.identifier == "ViewExercise" {
+        if segue.identifier == "selectedExercise" {
             if let dest = segue.destination as? ViewExerciseViewController {
                 if let cell = sender as? ExerciseCell {
                     if let exercise = cell.exercise {

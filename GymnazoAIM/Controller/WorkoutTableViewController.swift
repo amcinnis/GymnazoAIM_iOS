@@ -52,6 +52,8 @@ class WorkoutTableViewController: UITableViewController {
                 }
             }
         }
+        
+        
     }
 
     override func didReceiveMemoryWarning() {

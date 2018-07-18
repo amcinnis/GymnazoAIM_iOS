@@ -12,7 +12,8 @@ import Firebase
 public class FocusPoint {
     
     let categoryNamesRef = Database.database().reference().child("category_names")
-    var name: String
+    
+    var name: String // name of FocusPoint
     var categories: [String] // array of category names
     var ids: [String:String] //key is category, value is id
     var firebase: [String:String] //key is id, value is category

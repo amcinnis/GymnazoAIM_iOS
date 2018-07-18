@@ -10,6 +10,10 @@ import AVFoundation
 import Firebase
 import UIKit
 
+protocol ViewExerciseDelegate {
+    func clearExerciseView()
+}
+
 class QueueTableViewController: UITableViewController, QueueTableDelegate, UITextFieldDelegate {
 
     private var doneAction: UIAlertAction?
@@ -45,6 +49,7 @@ class QueueTableViewController: UITableViewController, QueueTableDelegate, UITex
             }
         }
     }
+    var exerciseDelegate:ViewExerciseDelegate?
     var workout:Workout?
     
     private var downloadAlert = UIAlertController(title: "Downloading...", message: "Gathering exercise videos...", preferredStyle: .alert)
@@ -62,6 +67,10 @@ class QueueTableViewController: UITableViewController, QueueTableDelegate, UITex
         if let tabBarVC = tabBarController as? TabBarViewController {
             tabBarVC.queueTableDelegate = self
         }
+        if let splitVC = splitViewController as? QueueSplitViewController {
+            self.exerciseDelegate = splitVC
+        }
+        
         getQueue()
     }
 
@@ -193,6 +202,7 @@ class QueueTableViewController: UITableViewController, QueueTableDelegate, UITex
                             if let delegate = this.queueDataDelegate {
                                 delegate.queueHasChanged(queue: [])
                                 this.updateTable()
+                                this.exerciseDelegate?.clearExerciseView()
                             }
                             else {
                                 print("Failed to clear queue and update table: delegate is nil")
@@ -308,41 +318,6 @@ class QueueTableViewController: UITableViewController, QueueTableDelegate, UITex
             print("Moved exercise: \(movedExercise.name ?? "Nil exercise name") from row \(sourceIndexPath.row) to \(destinationIndexPath.row)")
         }
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
     
     // MARK: - Navigation
 

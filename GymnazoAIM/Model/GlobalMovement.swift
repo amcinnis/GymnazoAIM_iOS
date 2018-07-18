@@ -9,9 +9,9 @@
 import Foundation
 
 class GlobalMovement {
-    var name: String
-    var id: String
-    var exercises: [Exercise]
+    var name: String // name of Global Movement
+    var id: String // Firebase Identifier
+    var exercises: [Exercise] // Categorized exercises for Global Movement
     
     init(id: String, name: String) {
         self.id = id

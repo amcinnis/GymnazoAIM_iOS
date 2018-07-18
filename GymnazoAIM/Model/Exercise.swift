@@ -9,17 +9,17 @@
 import Foundation
 
 class Exercise {
-    var name: String?
-    var databaseID: String?
-    var databasePath: String?
-    var storagePath: String?
-    var globalMovementID: String?
-    var globalMovementStr: String?
-    var enabledCategories: [String:String]?
-    var video: Video?
-    var creationDate: Date?
-    var movementOrganized: Bool?
-    var notes: String?
+    var name: String? // Name of exercise
+    var databaseID: String? // Firebase identifier
+    var databasePath: String? // Realtime Database path
+    var storagePath: String? // Storage path
+    var globalMovementID: String? // Identifier of Global Movement
+    var globalMovementStr: String? // String representation of Global Movement
+    var enabledCategories: [String:String]? // Dictionary containing enabled categories with identifiers
+    var video: Video? // Video object
+    var creationDate: Date? // Date created
+    var movementOrganized: Bool? // Toggle of movement organization
+    var notes: String? // Notes associated with Exercise
     
     init() {
         

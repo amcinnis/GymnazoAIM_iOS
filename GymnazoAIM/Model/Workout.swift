@@ -11,9 +11,9 @@ import Foundation
 
 public class Workout {
     
-    var name: String?
-    var databaseID: String?
-    var databasePath: String?
+    var name: String? // Name of workout
+    var databaseID: String? // Firebase identifier
+    var databasePath: String? // 
     var storagePath: String?
     var exercises: [Exercise]?
     var exercisePaths: [String]?

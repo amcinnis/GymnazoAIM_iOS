@@ -8,7 +8,7 @@
 
 import UIKit
 
-class QueueSplitViewController: UISplitViewController, UISplitViewControllerDelegate {
+class QueueSplitViewController: UISplitViewController, UISplitViewControllerDelegate, ViewExerciseDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +34,17 @@ class QueueSplitViewController: UISplitViewController, UISplitViewControllerDele
         }
         
         return false
+    }
+    
+    // MARK: - View Exercise Delegate
+    
+    func clearExerciseView() {
+        if let nav = self.viewControllers[1] as? UINavigationController {
+            if let viewExVC = nav.topViewController as? ViewExerciseViewController {
+                viewExVC.hideAllViews()
+                viewExVC.exercise = nil
+            }
+        }
     }
 
     /*

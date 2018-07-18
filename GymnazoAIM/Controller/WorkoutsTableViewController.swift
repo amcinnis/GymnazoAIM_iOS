@@ -46,6 +46,17 @@ class WorkoutsTableViewController: UITableViewController {
             this.workouts.append(workout)
             this.tableView.insertRows(at: [IndexPath(row: this.workouts.count-1, section: 0)], with: .automatic)
         })
+        
+        workoutsRef.observe(.childRemoved) {
+            [weak self] (snapshot) in
+            guard let this = self else { return }
+            
+            let id = snapshot.key
+            if let index = this.workouts.index(where: { $0.databaseID == id}) {
+                this.workouts.remove(at: index)
+                this.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {

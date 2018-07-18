@@ -17,6 +17,7 @@ protocol QueueTableDelegate {
 
 class TabBarViewController: UITabBarController, UITabBarControllerDelegate, QueueDataSourceDelegate {
     
+    var userIsAdmin = false
     var queue = [Exercise]() {
         didSet {
             if let delegate = queueTableDelegate {
