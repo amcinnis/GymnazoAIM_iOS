@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 import FirebaseAuth
 import GoogleSignIn
 
@@ -37,7 +38,40 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate, Queu
         Auth.auth().addStateDidChangeListener() {
             [weak self] (auth, user) in
             guard let this = self else { return }
-            if user == nil {
+            
+            // User Management
+            if let user = user {
+                
+                //Users
+                let usersRef = Database.database().reference().child("users")
+                usersRef.observeSingleEvent(of: .value, with: { (snapshot) in
+                    if !(snapshot.hasChild(user.uid)) {
+                        //New user, add to users and update last login
+                        usersRef.child(user.uid).setValue([
+                            "name": user.displayName!,
+                            "email": user.email!,
+                            "isAdmin": false,
+                            "lastLogin": Date().description
+                            ])
+                    }
+                    else {
+                        //Returning user, only update last login
+                        usersRef.child(user.uid).child("lastLogin").setValue(Date().description)
+                        let isAdmin = snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: "isAdmin").value as! Int
+                        this.userIsAdmin = isAdmin == 0 ? false : true
+                    }
+                })
+                
+                //Admins
+//                let adminsRef = Database.database().reference().child("admins")
+//                adminsRef.observeSingleEvent(of: .value, with: { (snapshot) in
+//                    if snapshot.hasChild(user.uid) {
+//                        adminsRef.child(user.uid).child("lastLogin").setValue(Date().description)
+//                        this.userIsAdmin = true
+//                    }
+//                })
+            }
+            else {
                 this.performSegue(withIdentifier: "Show Login", sender: nil)
             }
         }

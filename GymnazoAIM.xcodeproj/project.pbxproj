@@ -25,6 +25,8 @@
 		98C37B661E8130C800BDABF0 /* ViewExerciseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C37B651E8130C800BDABF0 /* ViewExerciseViewController.swift */; };
 		98C37B681E81528B00BDABF0 /* search-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C37B671E81528B00BDABF0 /* search-7.png */; };
 		98C37B6A1E8153E000BDABF0 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C37B691E8153E000BDABF0 /* SearchViewController.swift */; };
+		D50E3E8420FF323A00124927 /* ManageUsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E3E8320FF323A00124927 /* ManageUsersTableViewController.swift */; };
+		D50E3E8620FF32DE00124927 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E3E8520FF32DE00124927 /* User.swift */; };
 		D565689C1E99A14F00AACF4E /* CategorizeNewExerciseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D565689B1E99A14F00AACF4E /* CategorizeNewExerciseViewController.swift */; };
 		D584EEE420C628420021EC68 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D584EEE320C628420021EC68 /* Workout.swift */; };
 		D584EEE620C70AEE0021EC68 /* workout.png in Resources */ = {isa = PBXBuildFile; fileRef = D584EEE520C70AED0021EC68 /* workout.png */; };
@@ -68,6 +70,8 @@
 		98C37B691E8153E000BDABF0 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		B94878EEF466BD170D6698E2 /* Pods-GymnazoAIM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GymnazoAIM.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GymnazoAIM/Pods-GymnazoAIM.debug.xcconfig"; sourceTree = "<group>"; };
 		C8A327C0663618C85F61839F /* Pods-GymnazoAIM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GymnazoAIM.release.xcconfig"; path = "Pods/Target Support Files/Pods-GymnazoAIM/Pods-GymnazoAIM.release.xcconfig"; sourceTree = "<group>"; };
+		D50E3E8320FF323A00124927 /* ManageUsersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageUsersTableViewController.swift; sourceTree = "<group>"; };
+		D50E3E8520FF32DE00124927 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D565689B1E99A14F00AACF4E /* CategorizeNewExerciseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategorizeNewExerciseViewController.swift; sourceTree = "<group>"; };
 		D584EEE320C628420021EC68 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		D584EEE520C70AED0021EC68 /* workout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = workout.png; sourceTree = "<group>"; };
@@ -127,6 +131,7 @@
 				981DA2AD1E7CCAA000DDB8A8 /* Exercise.swift */,
 				981DA2A31E7CA79D00DDB8A8 /* Video.swift */,
 				D584EEE320C628420021EC68 /* Workout.swift */,
+				D50E3E8520FF32DE00124927 /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -139,6 +144,7 @@
 				985B47031E78DFD200E0992C /* CategoriesTableViewController.swift */,
 				98C37B631E812C0800BDABF0 /* ExercisesTableViewController.swift */,
 				984B02E01E7667FA00400548 /* LoginViewController.swift */,
+				D50E3E8320FF323A00124927 /* ManageUsersTableViewController.swift */,
 				98C37B5F1E8100C000BDABF0 /* MovementsTableViewController.swift */,
 				D5A317291E790A9E006DF5B8 /* NewFocusPointController.swift */,
 				D5F6A6D020BFED11002A11C6 /* QueueSplitViewController.swift */,
@@ -348,6 +354,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D50E3E8620FF32DE00124927 /* User.swift in Sources */,
 				D5F9133E20CB151400DABBF5 /* KVVideoManager.swift in Sources */,
 				D5A3172A1E790A9E006DF5B8 /* NewFocusPointController.swift in Sources */,
 				D5F6A6CF20BFE731002A11C6 /* QueueTableViewController.swift in Sources */,
@@ -361,6 +368,7 @@
 				D584EEE820C70B160021EC68 /* WorkoutsTableViewController.swift in Sources */,
 				98C37B621E81093300BDABF0 /* GlobalMovement.swift in Sources */,
 				D5F9133820CA203C00DABBF5 /* WorkoutTableViewController.swift in Sources */,
+				D50E3E8420FF323A00124927 /* ManageUsersTableViewController.swift in Sources */,
 				981DA2A41E7CA79D00DDB8A8 /* Video.swift in Sources */,
 				D5F00D33205DFFF3008D9892 /* AccountTableViewController.swift in Sources */,
 				D59185C91E76541000564FFE /* AppDelegate.swift in Sources */,

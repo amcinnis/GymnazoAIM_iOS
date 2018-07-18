@@ -49,35 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             }
             
             if let result = result {
-                // User Management
-                let user = result.user
-                var isAdmin = false
-                
-                //Users
-                let usersRef = Database.database().reference().child("users")
-                usersRef.observeSingleEvent(of: .value, with: { (snapshot) in
-                    if !(snapshot.hasChild(user.uid)) {
-                        //New user, add to users and update last login
-                        usersRef.child(user.uid).setValue([
-                            "name": user.displayName!,
-                            "lastLogin": Date().description
-                            ])
-                    }
-                    else {
-                        //Returning user, only update last login
-                        usersRef.child(user.uid).child("lastLogin").setValue(Date().description)
-                    }
-                })
-                
-                //Admins
-                let adminsRef = Database.database().reference().child("admins")
-                adminsRef.observeSingleEvent(of: .value, with: { (snapshot) in
-                    if snapshot.hasChild(user.uid) {
-                        adminsRef.child(user.uid).child("lastLogin").setValue(Date().description)
-                        isAdmin = true
-                    }
-                })
-                
+
                 if let username = result.user.displayName {
                     print("\(username) successfully signed in.")
                 }
@@ -85,7 +57,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                 //Tab Bar Controller Management
                 if let tabBarVC = self.window?.rootViewController as? TabBarViewController {
                     tabBarVC.selectedIndex = 0
-                    tabBarVC.userIsAdmin = isAdmin // TODO: check for race condition
                 }
             }
         })
