@@ -6,6 +6,7 @@
 //  Copyright © 2018 Austin McInnis. All rights reserved.
 //
 
+import Firebase
 import UIKit
 
 class AdministratorCell: UITableViewCell {
@@ -15,6 +16,7 @@ class AdministratorCell: UITableViewCell {
 
 class UserDetailsTableViewController: UITableViewController {
     
+    var adminDelegate: UserAdministratorDelegate?
     var user: User?
 
     override func viewDidLoad() {
@@ -30,10 +32,71 @@ class UserDetailsTableViewController: UITableViewController {
             self.navigationItem.title = user.name
         }
     }
-
+    
+    @IBAction func adminButtonSelected(_ sender: UIButton) {
+        if let user = user {
+            let isAdminRef = Database.database().reference().child("users").child(user.uid).child("isAdmin")
+            let alert: UIAlertController?
+            
+            if user.isAdmin {
+                alert = UIAlertController(title: "Remove Administrator Priveleges?", message: "Are you sure you want to remove administration priveleges from \(user.name)?", preferredStyle: .alert)
+                alert?.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                alert?.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { [weak self] (action) in
+                    guard let this = self else { return }
+                    this.setAdminButton(adminButton: sender, state: "make")
+                    this.setAccountTypeString(type: "User")
+                    isAdminRef.setValue(false)
+                    if let delegate = this.adminDelegate {
+                        delegate.isAdminChanged(isAdmin: false, forUser: user)
+                    }
+                    //Pop to root view controller if admin removed privileges for themself
+                    if let currentUser = Auth.auth().currentUser {
+                        if user.uid == currentUser.uid {
+                            this.navigationController?.popToRootViewController(animated: true)
+                        }
+                    }
+                }))
+            }
+            else {
+                alert = UIAlertController(title: "Grant Adminstrator Privileges?", message: "Are you sure you want to grant administration priveleges to \(user.name)?", preferredStyle: .alert)
+                alert?.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                alert?.addAction(UIAlertAction(title: "Grant", style: .default, handler: { [weak self] (action) in
+                    guard let this = self else { return }
+                    this.setAdminButton(adminButton: sender, state: "remove")
+                    this.setAccountTypeString(type: "Administrator")
+                    isAdminRef.setValue(true)
+                    if let delegate = this.adminDelegate {
+                        delegate.isAdminChanged(isAdmin: true, forUser: user)
+                    }
+                }))
+            }
+            if let alert = alert {
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func setAdminButton(adminButton: UIButton, state: String) {
+        switch state {
+        case "make":
+            adminButton.setTitle("Make Administrator", for: .normal)
+            adminButton.tintColor = UIColor(red: (194/255.0), green: (97/255.0), blue: (54/255.0), alpha: 1.0)
+        case "remove":
+            adminButton.setTitle("Remove Administrator Priveleges", for: .normal)
+            adminButton.tintColor = .red
+        default:
+            print("Error! Unexpected state for setAdminButton")
+        }
+    }
+    
+    func setAccountTypeString(type: String) {
+        let cell = tableView.cellForRow(at: IndexPath(row: 3, section: 0))
+        cell?.detailTextLabel?.text = type
     }
 
     // MARK: - Table view data source
@@ -85,12 +148,14 @@ class UserDetailsTableViewController: UITableViewController {
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "AdministratorCell", for: indexPath) as! AdministratorCell
             if self.user?.isAdmin == true {
-                cell.adminButton.setTitle("Remove Administrator Priveleges", for: .normal)
-                cell.adminButton.tintColor = .red
+                setAdminButton(adminButton: cell.adminButton, state: "remove")
+//                cell.adminButton.setTitle("Remove Administrator Priveleges", for: .normal)
+//                cell.adminButton.tintColor = .red
             }
             else {
-                cell.adminButton.setTitle("Make Administrator", for: .normal)
-                cell.adminButton.tintColor = UIColor(red: (194/255.0), green: (97/255.0), blue: (54/255.0), alpha: 1.0)
+                setAdminButton(adminButton: cell.adminButton, state: "make")
+//                cell.adminButton.setTitle("Make Administrator", for: .normal)
+//                cell.adminButton.tintColor = UIColor(red: (194/255.0), green: (97/255.0), blue: (54/255.0), alpha: 1.0)
             }
             return cell
         default:

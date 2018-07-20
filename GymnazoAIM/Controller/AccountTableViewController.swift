@@ -57,7 +57,7 @@ class AccountTableViewController: UITableViewController, UserAdministratorDelega
     
     // MARK: - User Administrator Delegate
     
-    func userChanged(isAdmin: Bool) {
+    func isAdminChanged(isAdmin: Bool, forUser: User?) {
         self.isAdmin = isAdmin
         self.tableView.reloadData()
     }

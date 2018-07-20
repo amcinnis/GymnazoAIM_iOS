@@ -13,7 +13,7 @@ class UserCell: UITableViewCell {
     var user: User?
 }
 
-class ManageUsersTableViewController: UITableViewController {
+class ManageUsersTableViewController: UITableViewController, UserAdministratorDelegate {
 
     var users = [User]()
     
@@ -48,6 +48,24 @@ class ManageUsersTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    // MARK: - User Administrator Delegate
+    
+    func isAdminChanged(isAdmin: Bool, forUser: User?) {
+        if let user = forUser {
+            if users.contains(where: {$0.uid == user.uid}) {
+                if let foundUser = users.first(where: {$0.uid == user.uid}) {
+                    foundUser.isAdmin = isAdmin
+                }
+                else {
+                    print("Error! \(user.name) not found!")
+                }
+            }
+            else {
+                print("Error! \(user.name) not found!")
+            }
+        }
+    }
 
     // MARK: - Table view data source
 
@@ -77,6 +95,7 @@ class ManageUsersTableViewController: UITableViewController {
             if let cell = sender as? UserCell {
                 if let detailVC = segue.destination as? UserDetailsTableViewController {
                     detailVC.user = cell.user
+                    detailVC.adminDelegate = self
                 }
             }
         }

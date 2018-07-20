@@ -17,7 +17,7 @@ protocol QueueTableDelegate {
 }
 
 protocol UserAdministratorDelegate {
-    func userChanged(isAdmin: Bool)
+    func isAdminChanged(isAdmin: Bool, forUser: User?)
 }
 
 class TabBarViewController: UITabBarController, UITabBarControllerDelegate, QueueDataSourceDelegate {
@@ -34,7 +34,7 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate, Queu
     var userIsAdmin = false {
         didSet {
             if let delegate = adminDelegate {
-                delegate.userChanged(isAdmin: userIsAdmin)
+                delegate.isAdminChanged(isAdmin: userIsAdmin, forUser: nil)
             }
         }
     }
@@ -76,6 +76,17 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate, Queu
             }
             else {
                 this.performSegue(withIdentifier: "Show Login", sender: nil)
+            }
+        }
+        
+        //Firebase Admin Management for current user
+        let auth = Auth.auth()
+        if let user = auth.currentUser {
+            let selfAdminRef = Database.database().reference().child("users").child(user.uid).child("isAdmin")
+            selfAdminRef.observe(.value) { [weak self] (snapshot) in
+                guard let this = self else { return }
+                let adminInt = snapshot.value as! Int
+                this.userIsAdmin = adminInt == 0 ? false : true
             }
         }
     }
