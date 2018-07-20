@@ -22,9 +22,14 @@ class AccountTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
+        self.navigationItem.title = "Account"
         if let tabBarVC = self.tabBarController as? TabBarViewController {
             isAdmin = tabBarVC.userIsAdmin
+            print("isAdmin: \(isAdmin)")
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         
     }
     

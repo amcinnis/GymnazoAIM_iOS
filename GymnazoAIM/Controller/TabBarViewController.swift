@@ -53,6 +53,7 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate, Queu
                             "isAdmin": false,
                             "lastLogin": Date().description
                             ])
+                        this.userIsAdmin = false
                     }
                     else {
                         //Returning user, only update last login

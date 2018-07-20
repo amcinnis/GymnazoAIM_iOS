@@ -36,6 +36,7 @@
 		D59185D01E76541000564FFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D59185CF1E76541000564FFE /* Assets.xcassets */; };
 		D59185D31E76541000564FFE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D59185D11E76541000564FFE /* LaunchScreen.storyboard */; };
 		D5A3172A1E790A9E006DF5B8 /* NewFocusPointController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A317291E790A9E006DF5B8 /* NewFocusPointController.swift */; };
+		D5E20E4821014BF400BF0401 /* UserDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E20E4721014BF400BF0401 /* UserDetailsTableViewController.swift */; };
 		D5F00D33205DFFF3008D9892 /* AccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F00D32205DFFF3008D9892 /* AccountTableViewController.swift */; };
 		D5F6A6CF20BFE731002A11C6 /* QueueTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F6A6CE20BFE731002A11C6 /* QueueTableViewController.swift */; };
 		D5F6A6D120BFED11002A11C6 /* QueueSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F6A6D020BFED11002A11C6 /* QueueSplitViewController.swift */; };
@@ -83,6 +84,7 @@
 		D59185D21E76541000564FFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D59185D41E76541000564FFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D5A317291E790A9E006DF5B8 /* NewFocusPointController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFocusPointController.swift; sourceTree = "<group>"; };
+		D5E20E4721014BF400BF0401 /* UserDetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsTableViewController.swift; sourceTree = "<group>"; };
 		D5F00D32205DFFF3008D9892 /* AccountTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewController.swift; sourceTree = "<group>"; };
 		D5F6A6CE20BFE731002A11C6 /* QueueTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueTableViewController.swift; sourceTree = "<group>"; };
 		D5F6A6D020BFED11002A11C6 /* QueueSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueSplitViewController.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				D5F9133520CA201E00DABBF5 /* WorkoutSplitViewController.swift */,
 				D5F9133720CA203C00DABBF5 /* WorkoutTableViewController.swift */,
 				D584EEE720C70B160021EC68 /* WorkoutsTableViewController.swift */,
+				D5E20E4721014BF400BF0401 /* UserDetailsTableViewController.swift */,
 				D5F9134120CF0C1100DABBF5 /* ViewWorkoutViewController.swift */,
 			);
 			path = Controller;
@@ -362,6 +365,7 @@
 				984B02E51E766E0700400548 /* TabBarViewController.swift in Sources */,
 				98C37B641E812C0800BDABF0 /* ExercisesTableViewController.swift in Sources */,
 				98C37B601E8100C000BDABF0 /* MovementsTableViewController.swift in Sources */,
+				D5E20E4821014BF400BF0401 /* UserDetailsTableViewController.swift in Sources */,
 				D5F9133620CA201E00DABBF5 /* WorkoutSplitViewController.swift in Sources */,
 				D5F9134220CF0C1100DABBF5 /* ViewWorkoutViewController.swift in Sources */,
 				984B02E11E7667FA00400548 /* LoginViewController.swift in Sources */,
@@ -523,7 +527,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = CM86EZ9GM9;
 				INFOPLIST_FILE = GymnazoAIM/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = amcinnis.GymnazoAIM;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -539,7 +543,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = CM86EZ9GM9;
 				INFOPLIST_FILE = GymnazoAIM/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = amcinnis.GymnazoAIM;
 				PRODUCT_NAME = "$(TARGET_NAME)";

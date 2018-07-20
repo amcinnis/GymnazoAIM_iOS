@@ -10,13 +10,17 @@ import Foundation
 
 public class User {
     
-    var name: String?
-    var email: String?
-    var status: String?
-    var lastLogin: String?
+    var name: String
+    var uid: String
+    var email: String
+    var isAdmin: Bool
+    var lastLogin: String
     
-    init(name: String, email: String, lastLogin: String) {
+    init(name: String, uid: String, email: String, isAdmin: Bool, lastLogin: String) {
         self.name = name
+        self.uid = uid
         self.email = email
+        self.isAdmin = isAdmin
+        self.lastLogin = lastLogin
     }
 }
