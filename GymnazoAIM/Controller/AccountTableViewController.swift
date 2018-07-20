@@ -30,18 +30,24 @@ class AccountTableViewController: UITableViewController, UserAdministratorDelega
     }
     
     @IBAction func signOut(_ sender: Any) {
-        GIDSignIn.sharedInstance().signOut()
-        let auth = Auth.auth()
-        do {
-            let username = auth.currentUser?.displayName
-            try auth.signOut()
-            if let username = username {
-                print("\(username) successfully signed out.")
+        let alert = UIAlertController(title: "Sign Out", message: "Are you sure you want to sign out?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {
+            (action) in
+            GIDSignIn.sharedInstance().signOut()
+            let auth = Auth.auth()
+            do {
+                let username = auth.currentUser?.displayName
+                try auth.signOut()
+                if let username = username {
+                    print("\(username) successfully signed out.")
+                }
             }
-        }
-        catch let signOutError as NSError {
-            print("Error signing out: \(signOutError.localizedDescription)")
-        }
+            catch let signOutError as NSError {
+                print("Error signing out: \(signOutError.localizedDescription)")
+            }
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -60,13 +66,16 @@ class AccountTableViewController: UITableViewController, UserAdministratorDelega
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return isAdmin == false ? 1 : 2
+        return isAdmin == false ? 2 : 3
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if isAdmin == false {
-            if section == 0 {
+        if section == 0 {
+            return 2
+        }
+        else if isAdmin == false {
+            if section == 1 {
                 return 1
             }
             else {
@@ -75,9 +84,9 @@ class AccountTableViewController: UITableViewController, UserAdministratorDelega
         }
         else {
             switch section {
-            case 0:
-                return 2
             case 1:
+                return 2
+            case 2:
                 return 1
             default:
                 return 0
@@ -86,13 +95,34 @@ class AccountTableViewController: UITableViewController, UserAdministratorDelega
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if isAdmin == false {
-            return tableView.dequeueReusableCell(withIdentifier: "SignOutCell", for: indexPath)
+        if indexPath.section == 0 {
+            let auth = Auth.auth()
+            let userName = auth.currentUser?.displayName
+            let email = auth.currentUser?.email
+            switch indexPath.row {
+            case 0:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "UserNameCell", for: indexPath)
+                cell.detailTextLabel?.text = userName
+                return cell
+            case 1:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "UserEmailCell", for: indexPath)
+                cell.detailTextLabel?.text = email
+                return cell
+            default:
+                return tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+            }
+        }
+        else if isAdmin == false {
+            if indexPath.section == 1 {
+                return tableView.dequeueReusableCell(withIdentifier: "SignOutCell", for: indexPath)
+            }
+            else {
+                return tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+            }
         }
         else {
             switch indexPath.section {
-            case 0:
+            case 1:
                 switch indexPath.row {
                 case 0:
                     return tableView.dequeueReusableCell(withIdentifier: "EditCategoriesCell", for: indexPath)
@@ -101,7 +131,7 @@ class AccountTableViewController: UITableViewController, UserAdministratorDelega
                 default:
                     return tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
                 }
-            case 1:
+            case 2:
                return tableView.dequeueReusableCell(withIdentifier: "SignOutCell", for: indexPath)
             default:
                 return tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
