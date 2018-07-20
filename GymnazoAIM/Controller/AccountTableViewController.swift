@@ -10,7 +10,7 @@ import UIKit
 import FirebaseAuth
 import GoogleSignIn
 
-class AccountTableViewController: UITableViewController {
+class AccountTableViewController: UITableViewController, UserAdministratorDelegate {
     var isAdmin = false
     
     override func viewDidLoad() {
@@ -24,13 +24,9 @@ class AccountTableViewController: UITableViewController {
         
         self.navigationItem.title = "Account"
         if let tabBarVC = self.tabBarController as? TabBarViewController {
-            isAdmin = tabBarVC.userIsAdmin
-            print("isAdmin: \(isAdmin)")
+            tabBarVC.adminDelegate = self
+            self.isAdmin = tabBarVC.userIsAdmin
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
     }
     
     @IBAction func signOut(_ sender: Any) {
@@ -51,6 +47,13 @@ class AccountTableViewController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: - User Administrator Delegate
+    
+    func userChanged(isAdmin: Bool) {
+        self.isAdmin = isAdmin
+        self.tableView.reloadData()
     }
     
     // MARK: - Table view data source

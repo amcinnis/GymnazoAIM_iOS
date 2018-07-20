@@ -192,7 +192,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserDetailCell" textLabel="ioL-d8-jhf" detailTextLabel="8Nk-SM-VRL" style="IBUITableViewCellStyleValue1" id="GUM-gO-oIu">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="UserDetailCell" textLabel="ioL-d8-jhf" detailTextLabel="8Nk-SM-VRL" style="IBUITableViewCellStyleValue1" id="GUM-gO-oIu">
                                 <rect key="frame" x="0.0" y="55.5" width="768" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GUM-gO-oIu" id="Ipb-Vw-J0S">
@@ -216,7 +216,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AdministratorCell" id="p3X-bT-57U" customClass="AdministratorCell" customModule="GymnazoAIM" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AdministratorCell" id="p3X-bT-57U" customClass="AdministratorCell" customModule="GymnazoAIM" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="99.5" width="768" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="p3X-bT-57U" id="sUX-pC-Iqb">
@@ -224,9 +224,9 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C3J-5Y-weY">
-                                            <rect key="frame" x="369" y="7" width="30" height="30"/>
+                                            <rect key="frame" x="369" y="0.0" width="30" height="44"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="30" id="bKS-6S-oay"/>
+                                                <constraint firstAttribute="height" constant="44" id="bKS-6S-oay"/>
                                             </constraints>
                                         </button>
                                     </subviews>
@@ -248,7 +248,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sn1-G5-Kfa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3239" y="4048"/>
+            <point key="canvasLocation" x="3238.28125" y="4047.6562499999995"/>
         </scene>
         <!--New Focus Point-->
         <scene sceneID="eal-oa-wMh">

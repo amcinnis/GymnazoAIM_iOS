@@ -16,9 +16,13 @@ protocol QueueTableDelegate {
     func updateTable()
 }
 
+protocol UserAdministratorDelegate {
+    func userChanged(isAdmin: Bool)
+}
+
 class TabBarViewController: UITabBarController, UITabBarControllerDelegate, QueueDataSourceDelegate {
     
-    var userIsAdmin = false
+    var adminDelegate:UserAdministratorDelegate?
     var queue = [Exercise]() {
         didSet {
             if let delegate = queueTableDelegate {
@@ -27,6 +31,13 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate, Queu
         }
     }
     var queueTableDelegate:QueueTableDelegate?
+    var userIsAdmin = false {
+        didSet {
+            if let delegate = adminDelegate {
+                delegate.userChanged(isAdmin: userIsAdmin)
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,26 +62,17 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate, Queu
                             "name": user.displayName!,
                             "email": user.email!,
                             "isAdmin": false,
-                            "lastLogin": Date().description
+                            "lastLogin": Date().description(with: .current)
                             ])
                         this.userIsAdmin = false
                     }
                     else {
                         //Returning user, only update last login
-                        usersRef.child(user.uid).child("lastLogin").setValue(Date().description)
+                        usersRef.child(user.uid).child("lastLogin").setValue(Date().description(with: .current))
                         let isAdmin = snapshot.childSnapshot(forPath: user.uid).childSnapshot(forPath: "isAdmin").value as! Int
                         this.userIsAdmin = isAdmin == 0 ? false : true
                     }
                 })
-                
-                //Admins
-//                let adminsRef = Database.database().reference().child("admins")
-//                adminsRef.observeSingleEvent(of: .value, with: { (snapshot) in
-//                    if snapshot.hasChild(user.uid) {
-//                        adminsRef.child(user.uid).child("lastLogin").setValue(Date().description)
-//                        this.userIsAdmin = true
-//                    }
-//                })
             }
             else {
                 this.performSegue(withIdentifier: "Show Login", sender: nil)
@@ -86,21 +88,5 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate, Queu
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    // MARK: - Tab Bar Controller Delegate
-//    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-//        
-//        if let selectedNav = viewController as? UINavigationController {
-//            if let movementsTableVC = selectedNav.topViewController as? MovementsTableViewController {
-//                movementsTableVC.queueDataDelegate = self
-//            }
-//            else if let searchVC = selectedNav.topViewController as? SearchViewController {
-//                searchVC.queueDataDelegate = self
-//            }
-//        }
-//        else if let splitVC = viewController as? QueueSplitViewController {
-//            splitVC.queueDataDelegate = self
-//        }
-//    }
 
 }

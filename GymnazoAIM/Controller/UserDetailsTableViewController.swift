@@ -85,14 +85,12 @@ class UserDetailsTableViewController: UITableViewController {
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "AdministratorCell", for: indexPath) as! AdministratorCell
             if self.user?.isAdmin == true {
-//                cell.adminButton.titleLabel?.text = "Remove Admin Status"
-                cell.adminButton.setTitle("Remove Admin Status", for: .normal)
+                cell.adminButton.setTitle("Remove Administrator Priveleges", for: .normal)
                 cell.adminButton.tintColor = .red
             }
             else {
-//                cell.adminButton.titleLabel?.text = "Make Administrator"
                 cell.adminButton.setTitle("Make Administrator", for: .normal)
-                cell.adminButton.tintColor = .green
+                cell.adminButton.tintColor = UIColor(red: (194/255.0), green: (97/255.0), blue: (54/255.0), alpha: 1.0)
             }
             return cell
         default:
