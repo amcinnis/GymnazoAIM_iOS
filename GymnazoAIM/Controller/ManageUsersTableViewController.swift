@@ -29,7 +29,8 @@ class ManageUsersTableViewController: UITableViewController, UserAdministratorDe
         self.navigationItem.title = "Manage Users"
         
         let usersRef = Database.database().reference().child("users")
-        usersRef.observe(.childAdded) { [weak self] (snapshot) in
+        usersRef.observe(.childAdded) {
+            [weak self] (snapshot) in
             guard let this = self else { return }
             
             let uid = snapshot.key
@@ -42,8 +43,34 @@ class ManageUsersTableViewController: UITableViewController, UserAdministratorDe
             this.users.append(user)
             this.tableView.insertRows(at: [IndexPath(row: this.users.count-1, section: 0)], with: .automatic)
         }
+        
+        usersRef.observe(.childRemoved) {
+            [weak self] (snapshot) in
+            guard let this = self else { return }
+            
+            let uid = snapshot.key
+            //Find user in users
+            if this.users.contains(where: {$0.uid == uid}) {
+                if let index = this.users.index(where: {$0.uid == uid}) {
+                    this.users.remove(at: index)
+                    this.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+                }
+            }
+            else {
+                print("Error! User not found in Model after deleting from Firebase.")
+            }
+        }
     }
 
+    @IBAction func addNewUser(_ sender: UIBarButtonItem) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let newUserVC = storyboard.instantiateViewController(
+            withIdentifier: "NewUserNavController")
+        newUserVC.modalPresentationStyle = .popover
+        newUserVC.popoverPresentationController?.barButtonItem = sender
+        self.present(newUserVC, animated: true, completion: nil)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

@@ -75,6 +75,33 @@ class UserDetailsTableViewController: UITableViewController {
             }
         }
     }
+    @IBAction func removeUser(_ sender: Any) {
+        if let user = user {
+            let alert = UIAlertController(title: "Remove User?", message: "Are you sure you want to remove \(user.name) from the database? This will prevent them from accessing all content.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: {
+                [weak self] (action) in
+                guard let this = self else { return }
+                let userRef = Database.database().reference().child("users").child(user.uid)
+                userRef.removeValue()
+                this.navigationController?.popViewController(animated: true)
+                
+                //If removing self, sign out
+                let auth = Auth.auth()
+                if let currentUser = auth.currentUser {
+                    if user.uid == currentUser.uid {
+                        do {
+                            try auth.signOut()
+                        }
+                        catch let signOutError as NSError {
+                            print("Error signing out \(signOutError)")
+                        }
+                    }
+                }
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -110,7 +137,7 @@ class UserDetailsTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         switch section {
             case 0: return 4
-            case 1: return 1
+            case 1: return 2
             default: return 0
         }
     }
@@ -146,18 +173,23 @@ class UserDetailsTableViewController: UITableViewController {
             }
             return cell
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "AdministratorCell", for: indexPath) as! AdministratorCell
-            if self.user?.isAdmin == true {
-                setAdminButton(adminButton: cell.adminButton, state: "remove")
-//                cell.adminButton.setTitle("Remove Administrator Priveleges", for: .normal)
-//                cell.adminButton.tintColor = .red
+            switch indexPath.row {
+            case 0:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "AdministratorCell", for: indexPath) as! AdministratorCell
+                if self.user?.isAdmin == true {
+                    setAdminButton(adminButton: cell.adminButton, state: "remove")
+                }
+                else {
+                    setAdminButton(adminButton: cell.adminButton, state: "make")
+                }
+                return cell
+            case 1:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "RemoveUserCell", for: indexPath)
+                return cell
+            default:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+                return cell
             }
-            else {
-                setAdminButton(adminButton: cell.adminButton, state: "make")
-//                cell.adminButton.setTitle("Make Administrator", for: .normal)
-//                cell.adminButton.tintColor = UIColor(red: (194/255.0), green: (97/255.0), blue: (54/255.0), alpha: 1.0)
-            }
-            return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
             return cell

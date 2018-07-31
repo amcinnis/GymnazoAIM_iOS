@@ -126,7 +126,6 @@ class CategoriesTableViewController: UITableViewController, UITextFieldDelegate,
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        print("Here")
         textField.resignFirstResponder()
         return true
     }
